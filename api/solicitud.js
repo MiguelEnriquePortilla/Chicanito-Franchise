@@ -3,7 +3,7 @@
 // cookie, nunca desde el cliente). Honeypot: si viene lleno, se responde
 // éxito sin guardar nada, para no delatarle al bot que fue detectado.
 const { readSession } = require('../lib/session');
-const { getSql, ensureTables } = require('../lib/db');
+const { getSql, ensureTables, codeIsActive } = require('../lib/db');
 const { notificarMiguel } = require('../lib/email');
 
 module.exports = async (req, res) => {
@@ -14,6 +14,18 @@ module.exports = async (req, res) => {
 
   const code = readSession(req);
   if (!code) {
+    res.status(401).json({ error: 'Sesión inválida' });
+    return;
+  }
+
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) {
+    res.status(500).json({ error: 'DATABASE_URL no configurada' });
+    return;
+  }
+  const sql = getSql();
+  await ensureTables(sql);
+  if (!(await codeIsActive(sql, code))) {
     res.status(401).json({ error: 'Sesión inválida' });
     return;
   }
@@ -37,15 +49,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const databaseUrl = process.env.DATABASE_URL;
-  if (!databaseUrl) {
-    res.status(500).json({ error: 'DATABASE_URL no configurada' });
-    return;
-  }
-
   try {
-    const sql = getSql();
-    await ensureTables(sql);
     await sql`
       INSERT INTO leads (code, nombre, telefono, correo, ciudad, capital_rango, como_nos_conociste, consentimiento)
       VALUES (${code}, ${nombre}, ${telefono}, ${correo}, ${ciudad}, ${capitalRango}, ${comoNosConociste}, ${consentimiento})

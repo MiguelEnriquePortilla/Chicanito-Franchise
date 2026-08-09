@@ -3,7 +3,7 @@
 // contenido). El shell público (guia.html) no trae el contenido embebido: lo
 // pide aquí después de que el navegador ya trae la cookie de sesión.
 const { readSession } = require('../lib/session');
-const { getSql, ensureTables } = require('../lib/db');
+const { getSql, ensureTables, codeIsActive } = require('../lib/db');
 
 const VENTA_POR_HORA = [
   { hora: 9, semana: 383, finde: 748 },
@@ -255,17 +255,29 @@ module.exports = async (req, res) => {
     return;
   }
 
-  let tipoCambio = 18.5;
   const databaseUrl = process.env.DATABASE_URL;
-  if (databaseUrl) {
-    try {
-      const sql = getSql();
-      await ensureTables(sql);
-      const filas = await sql`SELECT value FROM settings WHERE key = 'tipo_cambio'`;
-      if (filas[0]) tipoCambio = parseFloat(filas[0].value);
-    } catch {
-      // si falla la lectura del tipo de cambio, se usa el default — nunca bloquea la guía
-    }
+  if (!databaseUrl) {
+    res.status(500).json({ error: 'DATABASE_URL no configurada' });
+    return;
+  }
+
+  const sql = getSql();
+  await ensureTables(sql);
+
+  // La cookie por sí sola no sabe si la clave fue revocada después de
+  // emitirse — se reconfirma contra la base en cada carga de la guía.
+  if (!(await codeIsActive(sql, code))) {
+    res.setHeader('Cache-Control', 'no-store');
+    res.status(401).json({ error: 'Sesión inválida o vencida' });
+    return;
+  }
+
+  let tipoCambio = 18.5;
+  try {
+    const filas = await sql`SELECT value FROM settings WHERE key = 'tipo_cambio'`;
+    if (filas[0]) tipoCambio = parseFloat(filas[0].value);
+  } catch {
+    // si falla la lectura del tipo de cambio, se usa el default — nunca bloquea la guía
   }
 
   res.setHeader('Cache-Control', 'private, no-store');
