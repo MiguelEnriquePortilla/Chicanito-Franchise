@@ -63,7 +63,7 @@ function html() {
   </div>
 </section>
 
-<section class="bloque" id="bloque-03">
+<section class="bloque bloque--azul" id="bloque-03">
   <p class="eyebrow">03 · El modelo</p>
   <h2>Que la sucursal deje de esperar al cliente.</h2>
   <p><strong>Chicanito CEDIS</strong> es una sucursal que además funciona como centro de distribución de cinco Chicanito Móvil, los puntos de venta rodantes de la marca.</p>
@@ -112,13 +112,16 @@ function html() {
   <p class="eyebrow">06 · El modelo Móvil</p>
   <h2>El activo que se paga solo.</h2>
   <p>Un Chicanito Móvil completo cuesta $300,000. Operarlo cuesta $14,200 al año: gasolina, mantenimiento, seguro y permisos.</p>
+  <div class="bloque-personaje">
+    <img src="/assets/mascota.png" alt="Chicken Chicanito">
+  </div>
   <p>Vendiendo veintisiete pollos al día —conservador, muy por debajo de lo que esperamos— genera cerca de <strong>$1.5 millones de venta al año.</strong></p>
   <p>No lleva cocina. No lleva personal fijo. Lo opera un socio con sueldo base y comisión por venta, así que gana más cuando vende más.</p>
   <p class="destacado">Cada Chicanito Móvil se paga en menos de seis meses.</p>
   <p>Entra uno por año. No tienes que comprar cinco de golpe: los siguientes salen del flujo que el negocio ya está generando.</p>
 </section>
 
-<section class="bloque" id="bloque-07">
+<section class="bloque bloque--simulador" id="bloque-07">
   <p class="eyebrow">07 · Los números de tu unidad</p>
   <h2>Bloque interactivo. Mueve las variables tú mismo.</h2>
   <div id="simulador-root" data-tipo-cambio-default="">
@@ -151,6 +154,7 @@ function html() {
 
 <section class="bloque" id="bloque-10">
   <p class="eyebrow">10 · Cómo nos comparamos</p>
+  <div class="logo-box"><img src="/assets/logo-badge.jpg" alt="Chicken Chicanito"></div>
   <h2>Seis puntos de venta por el precio de uno.</h2>
   <p>Las franquicias de pollo en México venden lo mismo desde hace treinta años: una licencia, un local, un punto de venta. La cuota de entrada de una cadena establecida ronda los $280,000 pesos por ese único punto.</p>
   <p>Chicanito CEDIS entrega seis.</p>
@@ -184,12 +188,15 @@ function html() {
 </section>
 
 <section class="bloque bloque--cierre" id="bloque-12">
-  <p class="eyebrow">12 · Cierre</p>
-  <h2>El primero decide dónde.</h2>
-  <p>Hay una sola licencia disponible para Ciudad de México, y quien la tome escoge su territorio antes que nadie: la zona, la esquina, los cinco puntos donde van a parar los Chicanito Móvil.</p>
-  <p>Los que vengan después van a escoger de lo que sobre.</p>
-  <p>Más de veinte años de operación, un producto probado, una cocina que no tienes que aprender a manejar y seis puntos de venta desde el día uno.</p>
-  <p class="destacado destacado--grande">Lo único que falta eres tú.</p>
+  <div class="cintillo-cierre">
+    <img src="/assets/mascota.png" alt="" aria-hidden="true" class="cintillo-mascota">
+    <p class="eyebrow">12 · Cierre</p>
+    <h2>El primero decide dónde.</h2>
+    <p>Hay una sola licencia disponible para Ciudad de México, y quien la tome escoge su territorio antes que nadie: la zona, la esquina, los cinco puntos donde van a parar los Chicanito Móvil.</p>
+    <p>Los que vengan después van a escoger de lo que sobre.</p>
+    <p>Más de veinte años de operación, un producto probado, una cocina que no tienes que aprender a manejar y seis puntos de venta desde el día uno.</p>
+    <p class="destacado destacado--grande">Lo único que falta eres tú.</p>
+  </div>
 
   <div class="agenda-visita">
     <h3>Agenda tu visita a Jojutla</h3>

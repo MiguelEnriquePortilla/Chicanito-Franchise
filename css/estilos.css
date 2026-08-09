@@ -162,20 +162,6 @@ a { color: inherit; }
   transform: rotate(-8deg);
 }
 
-/* Chicanito Recargado, grande, "sentado" sobre la tarjeta — su fondo es
-   blanco liso y coincide exacto con el de la tarjeta, así que el traslape
-   no deja ninguna costura visible. */
-.hero-entrada-mascota-grande {
-  position: relative;
-  z-index: 2;
-  width: 168px;
-  margin-bottom: -38px;
-  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.4));
-}
-@media (max-width: 480px) {
-  .hero-entrada-mascota-grande { width: 132px; margin-bottom: -28px; }
-}
-
 .hero-entrada-inner {
   position: relative;
   z-index: 1;
@@ -330,6 +316,129 @@ a { color: inherit; }
 .bloque--portada > * { position: relative; z-index: 1; }
 
 .bloque--cierre { border-bottom: none; }
+
+/* Puntos de ritmo navy en el documento (bloque 03), mismo tratamiento que
+   la portada — para que la identidad de marca no viva solo al principio. */
+.bloque--azul {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--cream);
+}
+.bloque--azul::before {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/assets/slogan.png');
+  background-repeat: repeat;
+  background-size: 220px auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.05;
+  transform: rotate(-8deg);
+}
+.bloque--azul > * { position: relative; z-index: 1; }
+.bloque--azul .eyebrow { color: var(--gold); }
+.bloque--azul h2, .bloque--azul h3 { color: var(--white); }
+.bloque--azul .destacado { color: var(--gold); }
+.bloque--azul p { color: rgba(255, 247, 236, 0.9); }
+.bloque--azul strong { color: var(--white); }
+
+/* Bloque interactivo (07): blanco con la misma marca de agua tenue y un
+   marco navy, para que se sienta "el módulo especial" sin arriesgar el
+   contraste de las tarjetas del simulador (varias ya son blancas/navy
+   por dentro). */
+.bloque--simulador {
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+  border-top: 4px solid var(--navy);
+  border-bottom: 4px solid var(--navy);
+}
+.bloque--simulador::before {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/assets/slogan.png');
+  background-repeat: repeat;
+  background-size: 220px auto;
+  opacity: 0.035;
+  transform: rotate(-8deg);
+}
+.bloque--simulador > * { position: relative; z-index: 1; }
+
+/* Tarjeta con el personaje, mismo ancho/porte que la gráfica de venta por
+   hora, para que las dos piezas visuales del documento pesen parecido. */
+.bloque-personaje {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(23, 33, 62, 0.08);
+  padding: 1.5rem;
+  margin: 2rem 0;
+  min-height: 220px;
+}
+.bloque-personaje img { width: 150px; }
+
+/* Logo completo en caja (bloque 10) */
+.logo-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(23, 33, 62, 0.08);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+.logo-box img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+
+/* Cintillo rojo del cierre: patrón del slogan + mascota a un lado */
+.cintillo-cierre {
+  position: relative;
+  overflow: hidden;
+  background: var(--red);
+  color: var(--white);
+  border-radius: 20px;
+  padding: 2.5rem 1.75rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+.cintillo-cierre::before {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/assets/slogan.png');
+  background-repeat: repeat;
+  background-size: 200px auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.08;
+  transform: rotate(-8deg);
+}
+.cintillo-cierre > * { position: relative; z-index: 1; }
+.cintillo-cierre .eyebrow { color: var(--white); opacity: 0.85; }
+.cintillo-cierre h2 { color: var(--white); }
+.cintillo-cierre p { color: rgba(255, 255, 255, 0.92); }
+.cintillo-cierre .destacado--grande { color: var(--white); }
+.cintillo-mascota {
+  position: absolute;
+  z-index: 1;
+  right: -1.5rem;
+  bottom: -1.5rem;
+  width: 130px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+  pointer-events: none;
+}
+@media (max-width: 480px) {
+  .cintillo-mascota { width: 90px; right: -0.75rem; bottom: -0.75rem; opacity: 0.9; }
+}
 
 .eyebrow {
   font-family: var(--font-display);
