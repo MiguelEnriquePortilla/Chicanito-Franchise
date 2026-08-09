@@ -384,6 +384,9 @@ a { color: inherit; }
   min-height: 220px;
 }
 .bloque-personaje img { width: 150px; }
+/* El póster del Chicanito Móvil trae texto propio — necesita más ancho
+   para leerse, a diferencia del ícono de la mascota sola. */
+.bloque-personaje--movil img { width: 260px; }
 
 /* Logo completo en caja (bloque 10) */
 .logo-box {

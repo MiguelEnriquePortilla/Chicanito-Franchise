@@ -112,8 +112,8 @@ function html() {
   <p class="eyebrow">06 · El modelo Móvil</p>
   <h2>El activo que se paga solo.</h2>
   <p>Un Chicanito Móvil completo cuesta $300,000. Operarlo cuesta $14,200 al año: gasolina, mantenimiento, seguro y permisos.</p>
-  <div class="bloque-personaje">
-    <img src="/assets/mascota.png" alt="Chicken Chicanito">
+  <div class="bloque-personaje bloque-personaje--movil">
+    <img src="/assets/chicanito-movil.png" alt="Chicanito Móvil">
   </div>
   <p>Vendiendo veintisiete pollos al día —conservador, muy por debajo de lo que esperamos— genera cerca de <strong>$1.5 millones de venta al año.</strong></p>
   <p>No lleva cocina. No lleva personal fijo. Lo opera un socio con sueldo base y comisión por venta, así que gana más cuando vende más.</p>
