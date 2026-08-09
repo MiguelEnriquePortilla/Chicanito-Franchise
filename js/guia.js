@@ -55,7 +55,7 @@ function conectarFormulario() {
       correo: form.correo.value.trim(),
       ciudad: form.ciudad.value.trim(),
       capital_rango: form.capital_rango.value,
-      como_nos_conociste: form.como.value.trim(),
+      como_nos_conociste: form.como_nos_conociste.value.trim(),
       consentimiento: form.consentimiento.checked,
     };
 
