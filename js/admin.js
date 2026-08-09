@@ -100,8 +100,8 @@
       tbody.querySelectorAll('.link-revocar').forEach((btn) => {
         btn.addEventListener('click', async () => {
           if (!confirm(`¿Revocar la clave ${btn.dataset.code}? El acceso se bloquea de inmediato.`)) return;
-          await apiFetch('/api/admin/claves', {
-            method: 'PATCH',
+          await apiFetch('/api/admin/revocar', {
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code: btn.dataset.code, active: false }),
           });

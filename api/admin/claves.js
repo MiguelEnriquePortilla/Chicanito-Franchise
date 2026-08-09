@@ -1,5 +1,6 @@
 // /api/admin/claves — panel de administración de claves de prospecto.
-// GET: lista todas las claves. POST: crea una nueva. PATCH: revoca una existente.
+// GET: lista todas las claves. POST: crea una nueva. (Revocar vive en
+// /api/admin/revocar — ver ese archivo para por qué no es PATCH aquí mismo.)
 // Protegido por ADMIN_TOKEN (header Authorization: Bearer), separado por
 // completo del sistema de claves de prospectos.
 const { isAdminRequest } = require('../../lib/admin-auth');
@@ -56,18 +57,6 @@ module.exports = async (req, res) => {
         }
         throw e;
       }
-      res.status(200).json({ ok: true });
-      return;
-    }
-
-    if (req.method === 'PATCH') {
-      const { code, active } = req.body || {};
-      const codeNorm = normalizar(code);
-      if (!codeNorm || typeof active !== 'boolean') {
-        res.status(400).json({ error: 'Falta code o active' });
-        return;
-      }
-      await sql`UPDATE access_codes SET active = ${active} WHERE code = ${codeNorm}`;
       res.status(200).json({ ok: true });
       return;
     }
