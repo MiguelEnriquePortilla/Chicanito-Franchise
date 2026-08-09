@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · Guía del Inversionista</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/estilos.css">
+<link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <div id="admin-login" class="entrada">
+    <div class="entrada-tarjeta">
+      <h1 class="entrada-titulo" style="font-size:1.6rem">Admin</h1>
+      <p class="entrada-subtitulo">Guía del Inversionista</p>
+      <form class="entrada-form" id="form-admin-login">
+        <input id="admin-token" type="password" placeholder="Clave de administrador" autocomplete="off" required>
+        <p class="entrada-error" id="admin-login-error"></p>
+        <button type="submit" class="btn btn-primary btn-ancho">Entrar</button>
+      </form>
+    </div>
+  </div>
+
+  <main id="admin-panel" class="contenedor admin-panel" hidden>
+    <h1 class="admin-titulo">Guía del Inversionista — Admin</h1>
+
+    <nav class="admin-tabs">
+      <button class="admin-tab" data-tab="claves">Claves</button>
+      <button class="admin-tab" data-tab="actividad">Actividad</button>
+      <button class="admin-tab" data-tab="leads">Solicitudes</button>
+      <button class="admin-tab" data-tab="config">Tipo de cambio</button>
+    </nav>
+
+    <section class="admin-seccion" data-panel="claves">
+      <h2>Nueva clave</h2>
+      <form id="form-nueva-clave" class="admin-form-inline">
+        <input name="code" placeholder="CDMX-RAMIREZ" required>
+        <input name="prospect_name" placeholder="Nombre del prospecto">
+        <input name="prospect_phone" placeholder="Teléfono">
+        <input name="notes" placeholder="Notas">
+        <input name="expires_at" type="date" required>
+        <button type="submit" class="btn btn-primary">Crear clave</button>
+      </form>
+      <p class="admin-mensaje" id="mensaje-nueva-clave"></p>
+
+      <h2>Claves existentes</h2>
+      <div class="admin-tabla-wrap">
+        <table class="admin-tabla" id="tabla-claves">
+          <thead>
+            <tr><th>Clave</th><th>Prospecto</th><th>Estado</th><th>Vence</th><th>Visitas</th><th>Última visita</th><th></th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-seccion" data-panel="actividad" hidden>
+      <h2>Actividad por prospecto</h2>
+      <div class="admin-tabla-wrap">
+        <table class="admin-tabla" id="tabla-actividad">
+          <thead>
+            <tr><th>Clave</th><th>¿Entró?</th><th>Tiempo en página</th><th>Último bloque</th><th>Escenario que le interesó</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-seccion" data-panel="leads" hidden>
+      <h2>Solicitudes recibidas</h2>
+      <div class="admin-tabla-wrap">
+        <table class="admin-tabla" id="tabla-leads">
+          <thead>
+            <tr><th>Fecha</th><th>Nombre</th><th>Teléfono</th><th>Correo</th><th>Ciudad</th><th>Capital</th><th>Clave</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-seccion" data-panel="config" hidden>
+      <h2>Tipo de cambio USD/MXN</h2>
+      <p>Default que usa el simulador para prospectos que aún no han entrado.</p>
+      <form id="form-tipo-cambio" class="admin-form-inline">
+        <input name="tipoCambio" type="number" step="0.01" min="1" required>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+      <p class="admin-mensaje" id="mensaje-tipo-cambio"></p>
+    </section>
+  </main>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

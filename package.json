@@ -1,0 +1,9 @@
+{
+  "name": "chicanito-inversionista",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Guía del Inversionista — micrositio privado de venta de franquicia Chicanito CEDIS",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  }
+}
