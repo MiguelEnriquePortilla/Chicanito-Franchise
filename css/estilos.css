@@ -21,6 +21,13 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Cualquier regla de abajo con `display:` en el mismo elemento le gana a
+   [hidden] del navegador (una regla de autor siempre gana sobre la hoja de
+   estilos del user-agent, sin importar especificidad) — por eso
+   `elemento.hidden = true` puede quedar puesto en el HTML y no ocultar
+   nada. Esta regla lo blinda para todo el sitio. */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -139,32 +146,34 @@ a { color: inherit; }
   text-align: center;
 }
 
-/* Silueta grande de la mascota como textura de marca, grabada tenue en
-   una esquina — filter la aplana a blanco sólido sin tener que editar el
-   PNG (mismo truco que un watermark de texto, pero con la figura real). */
-.hero-entrada-mascota-fondo {
+/* "Very Sabrosito!" repetido como textura de marca de fondo — el PNG sí
+   tiene alfa real (confirmado), así que el filtro lo aplana a blanco sólido
+   tenue sin dejar caja ni editar el archivo. */
+.hero-entrada-patron {
   position: absolute;
+  inset: -15%;
   z-index: 0;
   pointer-events: none;
-  right: -12%;
-  bottom: -8%;
-  width: min(65vw, 560px);
+  background-image: url('/assets/slogan.png');
+  background-repeat: repeat;
+  background-size: 220px auto;
   filter: brightness(0) invert(1);
-  opacity: 0.07;
+  opacity: 0.05;
+  transform: rotate(-8deg);
 }
 
-/* La misma mascota, a color, chica, como sello/firma — nunca como
-   protagonista (mismo criterio que chicanito.app: chica, no un sello grande). */
-.hero-entrada-mascota-sello {
-  position: absolute;
-  z-index: 1;
-  left: 1.25rem;
-  bottom: 1.25rem;
-  width: 52px;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
+/* Chicanito Recargado, grande, "sentado" sobre la tarjeta — su fondo es
+   blanco liso y coincide exacto con el de la tarjeta, así que el traslape
+   no deja ninguna costura visible. */
+.hero-entrada-mascota-grande {
+  position: relative;
+  z-index: 2;
+  width: 168px;
+  margin-bottom: -38px;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.4));
 }
 @media (max-width: 480px) {
-  .hero-entrada-mascota-sello { width: 40px; left: 0.9rem; bottom: 0.9rem; }
+  .hero-entrada-mascota-grande { width: 132px; margin-bottom: -28px; }
 }
 
 .hero-entrada-inner {
@@ -191,6 +200,7 @@ a { color: inherit; }
 .hero-entrada-inner > *:nth-child(4) { animation-delay: 0.35s; }
 .hero-entrada-inner > *:nth-child(5) { animation-delay: 0.45s; }
 .hero-entrada-inner > *:nth-child(6) { animation-delay: 0.55s; }
+.hero-entrada-inner > *:nth-child(7) { animation-delay: 0.65s; }
 @media (prefers-reduced-motion: reduce) {
   .hero-entrada-inner > * { opacity: 1; animation: none; }
 }
@@ -293,6 +303,8 @@ a { color: inherit; }
   border-bottom: 1px solid var(--line);
 }
 .bloque--portada {
+  position: relative;
+  overflow: hidden;
   text-align: center;
   padding: 5rem 1.25rem;
   border-bottom: none;
@@ -300,6 +312,23 @@ a { color: inherit; }
   color: var(--cream);
   max-width: none;
 }
+/* Mismo patrón de marca del hero de entrada, para que la portada del
+   documento se sienta parte de la misma pieza. */
+.bloque--portada::before {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/assets/slogan.png');
+  background-repeat: repeat;
+  background-size: 220px auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.05;
+  transform: rotate(-8deg);
+}
+.bloque--portada > * { position: relative; z-index: 1; }
+
 .bloque--cierre { border-bottom: none; }
 
 .eyebrow {

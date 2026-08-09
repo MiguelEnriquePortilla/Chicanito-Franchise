@@ -11,8 +11,21 @@ import {
 const cargando = document.getElementById('guia-cargando');
 const contenido = document.getElementById('guia-contenido');
 
-function mostrarError() {
+function irAEntrada() {
   window.location.href = '/index.html';
+}
+
+// Si /api/guia tarda demasiado o la red falla, no se queda pegado en
+// "Cargando…" para siempre: muestra un botón de reintentar.
+function mostrarErrorCarga() {
+  cargando.innerHTML = `
+    <div style="text-align:center">
+      <p>No pudimos cargar el documento.</p>
+      <button type="button" class="btn btn-primary" id="btn-reintentar" style="margin-top:1rem">Reintentar</button>
+    </div>`;
+  document.getElementById('btn-reintentar').addEventListener('click', () => {
+    window.location.reload();
+  });
 }
 
 function conectarSimulador(tipoCambio) {
@@ -87,20 +100,36 @@ function conectarFormulario() {
 }
 
 async function iniciar() {
+  const opciones = { credentials: 'include' };
+  if (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) {
+    opciones.signal = AbortSignal.timeout(15000);
+  }
   let resp;
   try {
-    resp = await fetch('/api/guia', { credentials: 'include' });
+    resp = await fetch('/api/guia', opciones);
   } catch {
-    mostrarError();
+    // Sin conexión, tardó demasiado, etc. — no hay sesión que confirmar,
+    // así que se ofrece reintentar en vez de mandar a la entrada a ciegas.
+    mostrarErrorCarga();
     return;
   }
 
+  if (resp.status === 401 || resp.status === 403) {
+    irAEntrada();
+    return;
+  }
   if (!resp.ok) {
-    mostrarError();
+    mostrarErrorCarga();
     return;
   }
 
-  const data = await resp.json();
+  let data;
+  try {
+    data = await resp.json();
+  } catch {
+    mostrarErrorCarga();
+    return;
+  }
   contenido.innerHTML = data.html;
   cargando.hidden = true;
   contenido.hidden = false;
