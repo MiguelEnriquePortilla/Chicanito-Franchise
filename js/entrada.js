@@ -4,6 +4,11 @@
   const error = document.getElementById('entrada-error');
   const boton = document.getElementById('btn-entrar');
 
+  const pasoClave = document.getElementById('paso-clave');
+  const pasoConfid = document.getElementById('paso-confidencialidad');
+  const confidCheck = document.getElementById('confid-check');
+  const btnContinuar = document.getElementById('btn-continuar');
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     error.textContent = '';
@@ -23,7 +28,12 @@
       const data = await resp.json().catch(() => ({}));
 
       if (resp.ok && data.ok) {
-        window.location.href = '/guia.html';
+        if (data.ndaAccepted) {
+          window.location.href = '/guia.html';
+        } else {
+          pasoClave.hidden = true;
+          pasoConfid.hidden = false;
+        }
         return;
       }
 
@@ -34,5 +44,28 @@
       boton.disabled = false;
       boton.textContent = 'Entrar';
     }
+  });
+
+  confidCheck.addEventListener('change', () => {
+    btnContinuar.disabled = !confidCheck.checked;
+  });
+
+  btnContinuar.addEventListener('click', async () => {
+    btnContinuar.disabled = true;
+    btnContinuar.textContent = 'Un momento…';
+    try {
+      const resp = await fetch('/api/aceptar-terminos', {
+        method: 'POST',
+        credentials: 'include',
+      });
+      if (resp.ok) {
+        window.location.href = '/guia.html';
+        return;
+      }
+    } catch {
+      // sigue al mensaje de abajo
+    }
+    btnContinuar.disabled = false;
+    btnContinuar.textContent = 'Continuar al documento';
   });
 })();

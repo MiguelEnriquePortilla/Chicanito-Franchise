@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
     if (req.method === 'GET') {
       const filas = await sql`
         SELECT code, prospect_name, prospect_phone, notes, expires_at, active,
-               created_at, first_seen_at, last_seen_at, view_count
+               created_at, first_seen_at, last_seen_at, view_count, nda_accepted_at
         FROM access_codes
         ORDER BY created_at DESC
       `;

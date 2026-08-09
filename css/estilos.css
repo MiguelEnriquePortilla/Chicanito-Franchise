@@ -123,6 +123,144 @@ a { color: inherit; }
 .entrada-pie { margin-top: 1.5rem; font-size: 0.85rem; color: var(--black); opacity: 0.6; }
 .entrada-pie a { color: var(--navy); font-weight: 600; }
 
+/* ---------- Pantalla de entrada — hero (mismo registro que el splash de la
+   app y el hero de la landing: navy a sangre, watermark gigante, entrada
+   escalonada) ---------- */
+.hero-entrada {
+  position: relative;
+  min-height: 100vh;
+  background: var(--navy);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 3rem 1.25rem;
+  text-align: center;
+}
+
+.hero-entrada-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: 26vw;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.045);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-entrada-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 440px;
+}
+
+@keyframes entradaFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-entrada-inner > * {
+  opacity: 0;
+  animation: entradaFadeUp 0.7s ease forwards;
+}
+.hero-entrada-inner > *:nth-child(1) { animation-delay: 0.05s; }
+.hero-entrada-inner > *:nth-child(2) { animation-delay: 0.15s; }
+.hero-entrada-inner > *:nth-child(3) { animation-delay: 0.25s; }
+.hero-entrada-inner > *:nth-child(4) { animation-delay: 0.35s; }
+.hero-entrada-inner > *:nth-child(5) { animation-delay: 0.45s; }
+.hero-entrada-inner > *:nth-child(6) { animation-delay: 0.55s; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-entrada-inner > * { opacity: 1; animation: none; }
+}
+
+.hero-entrada-logo {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--red);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15);
+  margin-bottom: 1rem;
+}
+
+.hero-entrada-eyebrow {
+  font-family: var(--font-display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.hero-entrada-titulo {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 10vw, 4.2rem);
+  line-height: 0.98;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+
+.hero-entrada-subtitulo {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 2rem;
+}
+
+.hero-entrada-tarjeta {
+  width: 100%;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  color: var(--navy);
+  text-align: center;
+}
+
+.hero-entrada-pie {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+.hero-entrada-pie a { color: var(--white); font-weight: 600; text-decoration: underline; }
+
+/* ---------- Paso de confidencialidad (dentro de la misma tarjeta) ---------- */
+.confid-titulo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.9rem;
+  color: var(--navy);
+}
+.confid-texto {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--black);
+  opacity: 0.85;
+  text-align: left;
+  margin-bottom: 0.9rem;
+}
+.confid-texto a { color: var(--navy); font-weight: 600; }
+.confid-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--navy);
+  margin: 1.1rem 0 1.3rem;
+  cursor: pointer;
+}
+.confid-checkbox input { width: auto; margin-top: 0.15rem; flex-shrink: 0; }
+
 /* ---------- Guía ---------- */
 .guia-cargando {
   min-height: 100vh;

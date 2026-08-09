@@ -3,7 +3,7 @@
 // contenido). El shell público (guia.html) no trae el contenido embebido: lo
 // pide aquí después de que el navegador ya trae la cookie de sesión.
 const { readSession } = require('../lib/session');
-const { getSql, ensureTables, codeIsActive } = require('../lib/db');
+const { getSql, ensureTables, getCodeStatus } = require('../lib/db');
 
 const VENTA_POR_HORA = [
   { hora: 9, semana: 383, finde: 748 },
@@ -264,11 +264,17 @@ module.exports = async (req, res) => {
   const sql = getSql();
   await ensureTables(sql);
 
-  // La cookie por sí sola no sabe si la clave fue revocada después de
-  // emitirse — se reconfirma contra la base en cada carga de la guía.
-  if (!(await codeIsActive(sql, code))) {
+  // La cookie por sí sola no sabe si la clave fue revocada (o si todavía no
+  // acepta confidencialidad) — se reconfirma contra la base en cada carga.
+  const estado = await getCodeStatus(sql, code);
+  if (!estado.active) {
     res.setHeader('Cache-Control', 'no-store');
     res.status(401).json({ error: 'Sesión inválida o vencida' });
+    return;
+  }
+  if (!estado.ndaAccepted) {
+    res.setHeader('Cache-Control', 'no-store');
+    res.status(403).json({ error: 'Falta aceptar confidencialidad', needsTerms: true });
     return;
   }
 

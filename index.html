@@ -3,24 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guía del Inversionista · Chicken Chicanito</title>
+<title>Chicanito Franchise — Documento Informativo</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/logo-badge.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-  <main class="entrada">
-    <div class="entrada-tarjeta">
-      <h1 class="entrada-titulo">Guía del Inversionista</h1>
-      <p class="entrada-subtitulo">Chicken Chicanito · Modelo de franquicia CEDIS</p>
-      <form class="entrada-form" id="form-entrada" novalidate>
-        <label for="clave" class="sr-only">Tu clave de acceso</label>
-        <input id="clave" name="clave" type="text" placeholder="Tu clave de acceso" autocomplete="off" autocapitalize="characters" required>
-        <p class="entrada-error" id="entrada-error" role="alert"></p>
-        <button type="submit" class="btn btn-primary btn-ancho" id="btn-entrar">Entrar</button>
-      </form>
-      <p class="entrada-pie">¿No tienes clave? Escríbenos al <a href="tel:8672823207">867 282 3207</a>.</p>
+  <main class="hero-entrada">
+    <div class="hero-entrada-bg-text" aria-hidden="true">CHICANITO</div>
+    <div class="hero-entrada-inner">
+      <img src="/assets/logo-badge.jpg" alt="Chicken Chicanito" class="hero-entrada-logo">
+      <p class="hero-entrada-eyebrow">Documento Informativo · Confidencial</p>
+      <h1 class="hero-entrada-titulo">Chicanito<br>Franchise</h1>
+      <p class="hero-entrada-subtitulo">Chicken Chicanito · Modelo de franquicia CEDIS</p>
+
+      <div class="hero-entrada-tarjeta">
+        <div id="paso-clave">
+          <form class="entrada-form" id="form-entrada" novalidate>
+            <label for="clave" class="sr-only">Tu clave de acceso</label>
+            <input id="clave" name="clave" type="text" placeholder="Tu clave de acceso" autocomplete="off" autocapitalize="characters" required>
+            <p class="entrada-error" id="entrada-error" role="alert"></p>
+            <button type="submit" class="btn btn-primary btn-ancho" id="btn-entrar">Entrar</button>
+          </form>
+        </div>
+
+        <div id="paso-confidencialidad" hidden>
+          <h2 class="confid-titulo">Antes de continuar</h2>
+          <p class="confid-texto">Las cifras de venta, el modelo financiero y los términos de la licencia que vas a conocer son información confidencial de Chicken Chicanito, compartida contigo como prospecto de esta franquicia. Te pedimos no compartirla con terceros ni usarla fuera de tu proceso de decisión.</p>
+          <p class="confid-texto">Tus datos de contacto se usan únicamente para darte seguimiento sobre esta oportunidad, conforme a nuestro <a href="/privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>.</p>
+          <label class="confid-checkbox">
+            <input type="checkbox" id="confid-check">
+            He leído y acepto los términos de confidencialidad y el aviso de privacidad.
+          </label>
+          <button type="button" class="btn btn-primary btn-ancho" id="btn-continuar" disabled>Continuar al documento</button>
+        </div>
+      </div>
+
+      <p class="hero-entrada-pie">¿No tienes clave? Escríbenos al <a href="tel:8672823207">867 282 3207</a>.</p>
     </div>
   </main>
   <script src="/js/entrada.js"></script>

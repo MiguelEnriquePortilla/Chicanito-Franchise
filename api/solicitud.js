@@ -3,7 +3,7 @@
 // cookie, nunca desde el cliente). Honeypot: si viene lleno, se responde
 // éxito sin guardar nada, para no delatarle al bot que fue detectado.
 const { readSession } = require('../lib/session');
-const { getSql, ensureTables, codeIsActive } = require('../lib/db');
+const { getSql, ensureTables, getCodeStatus } = require('../lib/db');
 const { notificarMiguel } = require('../lib/email');
 
 module.exports = async (req, res) => {
@@ -25,7 +25,8 @@ module.exports = async (req, res) => {
   }
   const sql = getSql();
   await ensureTables(sql);
-  if (!(await codeIsActive(sql, code))) {
+  const estado = await getCodeStatus(sql, code);
+  if (!estado.active) {
     res.status(401).json({ error: 'Sesión inválida' });
     return;
   }

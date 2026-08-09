@@ -75,12 +75,12 @@
 
   async function cargarClaves() {
     const tbody = document.querySelector('#tabla-claves tbody');
-    tbody.innerHTML = '<tr><td colspan="7">Cargando…</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8">Cargando…</td></tr>';
     try {
       const resp = await apiFetch('/api/admin/claves');
       const data = await resp.json();
       if (!data.claves.length) {
-        tbody.innerHTML = '<tr><td colspan="7">Sin claves todavía</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8">Sin claves todavía</td></tr>';
         return;
       }
       tbody.innerHTML = data.claves.map((c) => {
@@ -93,6 +93,7 @@
             <td>${new Date(c.expires_at).toLocaleDateString('es-MX')}</td>
             <td>${c.view_count}</td>
             <td>${c.last_seen_at ? new Date(c.last_seen_at).toLocaleString('es-MX') : '—'}</td>
+            <td>${c.nda_accepted_at ? new Date(c.nda_accepted_at).toLocaleDateString('es-MX') : '—'}</td>
             <td>${c.active ? `<button class="link-revocar" data-code="${c.code}">Revocar</button>` : ''}</td>
           </tr>`;
       }).join('');
