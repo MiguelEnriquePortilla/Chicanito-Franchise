@@ -39,20 +39,16 @@ function barritasHora() {
 function html() {
   return `
 <section class="bloque bloque--portada" id="bloque-01">
-  <p class="eyebrow">Chicken Chicanito · Modelo de franquicia CEDIS</p>
-  <h1 class="titular">Una sucursal. Seis puntos de venta.</h1>
-  <p class="bajada">Chicken Chicanito vende $9.8 millones al año en un local sin una sola mesa. Todo se lo llevan. Ahora vamos a llevárselo nosotros.</p>
-  <p class="pie-portada">Primera unidad: Ciudad de México · Licencia disponible</p>
+  <p class="eyebrow">Chicken Chicanito · Sociedad de capital para expansión</p>
+  <h1 class="titular">Una sociedad de capital para la Tienda Insignia de Chicken Chicanito en la Ciudad de México.</h1>
+  <p class="bajada">Chicken Chicanito genera $9.8 millones de pesos al año en una sola ubicación, en Jojutla, sin una mesa y sin haber salido nunca a la calle. Buscamos un socio capitalista para abrir la Tienda Insignia de la marca en la Ciudad de México, junto con sus cinco puntos Chicanito Móvil asociados. La operación completa —cadena de suministro, personal, procesos y estrategia comercial— es responsabilidad exclusiva de Chicanito.</p>
+  <p class="pie-portada">Tienda Insignia: Ciudad de México · Sociedad de capital disponible</p>
 </section>
 
 <section class="bloque" id="bloque-02">
-  <p class="eyebrow">02 · El problema</p>
-  <h2>Una rosticería es un negocio atado a un metro cuadrado.</h2>
-  <p>Rentas todo el día. Pagas nómina todo el día. Compras equipo que sirve todo el día.</p>
-  <p>Y vendes tres horas.</p>
-  <p>En Jojutla lo medimos: <strong>el 63% de la venta ocurre entre la una y las cuatro de la tarde.</strong> A las nueve de la mañana el local factura menos de cuatrocientos pesos. Después de las cinco, se apaga.</p>
-  <p>El equipo está pagado. La renta está pagada. La gente está ahí.</p>
-  <p>El problema nunca fue la demanda. Fue que el negocio no se puede mover.</p>
+  <p class="eyebrow">02 · El fundamento del modelo</p>
+  <h2>Una rosticería con ubicación fija paga renta, nómina y equipo todo el día, pero concentra la venta en unas cuantas horas.</h2>
+  <p>En Jojutla lo medimos con precisión: <strong>el 63% de la venta ocurre entre la una y las cuatro de la tarde.</strong> A las nueve de la mañana, la operación factura menos de cuatrocientos pesos. Después de las cinco, prácticamente se detiene.</p>
   <div class="grafica-horas" role="img" aria-label="Venta promedio por hora en Jojutla, últimos 90 días. La franja de 13 a 16 horas concentra el 63% de la venta del día.">
     ${barritasHora()}
   </div>
@@ -61,17 +57,19 @@ function html() {
     <span><i class="dot dot--finde"></i> Fin de semana</span>
     <span class="grafica-horas-nota">13–16h = 63% de la venta del día</span>
   </div>
+  <p>El negocio nunca tuvo un problema de demanda. Tuvo un problema de inmovilidad: la infraestructura —equipo, personal, capacidad de producción— permanecía sin usarse la mayor parte del día.</p>
+  <p>El modelo que Chicanito opera en cada mercado resuelve esto combinando una tienda fija con puntos de venta móviles, de manera que la misma inversión en infraestructura genera ingresos durante todo el día, no solo en las horas de mayor demanda.</p>
 </section>
 
 <section class="bloque bloque--azul" id="bloque-03">
   <p class="eyebrow">03 · El modelo</p>
-  <h2>Que la sucursal deje de esperar al cliente.</h2>
-  <p><strong>Chicanito CEDIS</strong> es una sucursal que además funciona como centro de distribución de cinco Chicanito Móvil, los puntos de venta rodantes de la marca.</p>
-  <p>Cada mañana a las nueve —la hora muerta— los Chicanito Móvil cargan producto y salen. Escuelas, empresas, parques industriales, los puntos donde la gente ya está. Regresan al cierre.</p>
-  <p>La sucursal vende en su esquina. Los Chicanito Móvil venden en cinco esquinas más.</p>
+  <h2>Que la Tienda Insignia no dependa únicamente de la venta que ocurre dentro de sus cuatro paredes.</h2>
+  <p><strong>Chicanito CEDIS</strong> es una Tienda Insignia que opera además como centro de distribución de cinco unidades Chicanito Móvil, los puntos de venta rodantes de la marca.</p>
+  <p>Cada mañana, en la hora de menor actividad, las unidades Chicanito Móvil cargan producto y se distribuyen hacia los puntos donde la demanda ya existe: escuelas, zonas empresariales, parques industriales. Regresan al cierre de operaciones.</p>
+  <p>La Tienda Insignia vende en su ubicación. Las cinco unidades Móviles venden en cinco ubicaciones adicionales.</p>
   <p class="destacado">Misma renta. Mismo equipo. Misma nómina base. Seis puntos de venta.</p>
   <div class="diagrama-cedis">
-    <div class="diagrama-nodo diagrama-nodo--centro">Sucursal CEDIS</div>
+    <div class="diagrama-nodo diagrama-nodo--centro">Tienda Insignia CEDIS</div>
     <div class="diagrama-radios">
       <div class="diagrama-nodo">Chicanito Móvil 1</div>
       <div class="diagrama-nodo">Chicanito Móvil 2</div>
@@ -83,19 +81,27 @@ function html() {
 </section>
 
 <section class="bloque" id="bloque-04">
-  <p class="eyebrow">04 · La cocina se queda en Jojutla</p>
-  <h2>Tú no compras una receta. Compras un negocio que ya funciona.</h2>
-  <p>Toda la producción permanece en nuestra planta de Jojutla. El pollo sale marinado, empacado pieza por pieza, a dos grados. Llega a tu sucursal listo para meterse al horno.</p>
-  <p>Tú no compras insumos. No negocias con proveedores. No manejas mermas de proceso. No necesitas un cocinero.</p>
-  <p class="destacado">Tu sucursal enciende el horno y vende.</p>
-  <p>Eso significa mucho menos gente para operar. Y significa que el sabor es exactamente el mismo en Jojutla que en Ciudad de México, todos los días, sin depender de quién esté en turno.</p>
+  <p class="eyebrow">04 · La operación es responsabilidad de Chicanito</p>
+  <h2>El valor no está solo en la receta. Está en cómo se ejecuta, todos los días.</h2>
+  <p>El valor de Chicken Chicanito no está únicamente en la receta. Está en la consistencia con la que esa receta se ejecuta, todos los días, en cada punto de venta — una consistencia construida durante más de veinte años de atención sostenida a los detalles operativos: cómo se marina, cómo se conserva, cómo se cocina, cómo se atiende.</p>
+  <p class="destacado">Esa consistencia es el activo. Y un activo así no se transfiere junto con una licencia: se pierde en el momento en que la operación pasa a manos de un tercero que no comparte el mismo estándar ni la misma experiencia acumulada.</p>
+  <p>Por eso el modelo no se franquicia ni se licencia. La operación permanece, sin excepción, a cargo de Chicanito.</p>
+  <p>La producción continúa centralizada en la planta de Jojutla. El producto sale marinado, empacado por pieza, refrigerado, y llega a la Tienda Insignia listo para su preparación final.</p>
+  <p><strong>Chicanito es responsable de la totalidad de la operación:</strong></p>
+  <ul class="lista-incluye">
+    <li>Cadena de suministro y abastecimiento</li>
+    <li>Contratación, capacitación y gestión del personal, tanto de la Tienda Insignia como de las unidades Móviles</li>
+    <li>Procesos operativos diarios</li>
+    <li>Estrategia comercial y de redes sociales</li>
+  </ul>
+  <p>El socio capitalista no participa en ninguno de estos procesos. Su aportación es exclusivamente el capital necesario para la apertura.</p>
 </section>
 
 <section class="bloque" id="bloque-05">
-  <p class="eyebrow">05 · La prueba</p>
-  <h2>Esto no es una idea. Es una operación con más de veinte años y números en el sistema.</h2>
+  <p class="eyebrow">05 · La evidencia operativa</p>
+  <h2>Esto no es un modelo hipotético. Es una operación con más de veinte años y números en el sistema.</h2>
   <div class="cifras-grid">
-    <div class="cifra"><span class="cifra-valor">$9,828,017</span><span class="cifra-label">Venta de los últimos doce meses</span></div>
+    <div class="cifra"><span class="cifra-valor">$9,828,017</span><span class="cifra-label">Venta de los últimos doce meses — Jojutla</span></div>
     <div class="cifra"><span class="cifra-valor">$29,449</span><span class="cifra-label">Venta promedio por día</span></div>
     <div class="cifra"><span class="cifra-valor">$163</span><span class="cifra-label">Ticket promedio — creció 22% en dos años</span></div>
     <div class="cifra"><span class="cifra-valor">6</span><span class="cifra-label">Meses consecutivos creciendo contra el año anterior</span></div>
@@ -104,8 +110,9 @@ function html() {
     <div class="cifra"><span class="cifra-valor">78.5%</span><span class="cifra-label">Del ingreso lo generan 12 productos del menú</span></div>
   </div>
   <p><strong>Todo se lo llevan.</strong> Chicken Chicanito no tiene mesas. El cien por ciento de la venta sale por la puerta. El producto ya viaja y el cliente ya lo acepta así — no es un supuesto del modelo, es como opera el negocio desde el primer día.</p>
-  <p><strong>La receta lleva dos generaciones.</strong> El negocio nació con el papá de Lilian López y hoy opera bajo la marca Chicken Chicanito. Lo que vas a vender no se inventó para esta franquicia: lleva más de veinte años probándose con clientes que regresan.</p>
+  <p><strong>La receta lleva dos generaciones.</strong> El negocio nació con el papá de Lilian López y hoy opera bajo la marca Chicken Chicanito. Lleva más de veinte años probándose con clientes que regresan.</p>
   <p><strong>La cocina tiene capacidad de producción de sobra.</strong> El 24 y el 31 de diciembre despachamos más de cuatrocientos tickets en un día, contra un promedio normal de ciento setenta y cinco. La capacidad para crecer ya está instalada y pagada.</p>
+  <p>La Tienda Insignia de Ciudad de México es la expansión de este modelo probado — no una réplica sin historial, sino la aplicación del mismo sistema operativo, la misma receta y la misma disciplina que ya generan estos resultados en Jojutla.</p>
 </section>
 
 <section class="bloque" id="bloque-06">
@@ -116,60 +123,63 @@ function html() {
     <img src="/assets/chicanito-movil.png" alt="Chicanito Móvil">
   </div>
   <p>Vendiendo veintisiete pollos al día —conservador, muy por debajo de lo que esperamos— genera cerca de <strong>$1.5 millones de venta al año.</strong></p>
-  <p>No lleva cocina. No lleva personal fijo. Lo opera un socio con sueldo base y comisión por venta, así que gana más cuando vende más.</p>
-  <p class="destacado">Cada Chicanito Móvil se paga en menos de seis meses.</p>
-  <p>Entra uno por año. No tienes que comprar cinco de golpe: los siguientes salen del flujo que el negocio ya está generando.</p>
+  <p>Chicanito contrata y gestiona al socio operativo de cada unidad, bajo un esquema de sueldo base más comisión por venta. El socio capitalista no participa en esta gestión.</p>
+  <p class="destacado">Cada Chicanito Móvil se recupera en menos de seis meses.</p>
+  <p>Entra uno por año. No se compran cinco de golpe: los siguientes salen del flujo que el negocio ya está generando.</p>
 </section>
 
 <section class="bloque bloque--simulador" id="bloque-07">
-  <p class="eyebrow">07 · Los números de tu unidad</p>
+  <p class="eyebrow">07 · Proyección financiera</p>
   <h2>Bloque interactivo. Mueve las variables tú mismo.</h2>
+  <p>Los términos definitivos de participación se establecen en conversación directa con cada socio, de acuerdo con el capital aportado. Este simulador permite explorar la economía de la Tienda Insignia bajo distintos escenarios, con un porcentaje de participación ilustrativo ajustable para dimensionar un retorno de ejemplo.</p>
   <div id="simulador-root" data-tipo-cambio-default="">
     <p class="simulador-cargando">Cargando el simulador…</p>
   </div>
 </section>
 
 <section class="bloque" id="bloque-08">
-  <p class="eyebrow">08 · Cómo gana la marca</p>
-  <h2>No ganamos en el producto. Ganamos solo si tú creces.</h2>
-  <p>Te vendemos el producto prácticamente a costo. Nuestro costo de receta está en el sistema y lo puedes auditar: el paquete completo nos cuesta setenta y cuatro pesos, y te lo transferimos en ochenta. Esos seis pesos son mano de obra de producción, empaque y flete. Nada más.</p>
-  <p>Nuestra ganancia está en la regalía. <strong>Si tú no vendes, nosotros no ganamos.</strong></p>
-  <p>Es la única estructura en la que nos conviene exactamente lo mismo que a ti.</p>
+  <p class="eyebrow">08 · Distribución de utilidades</p>
+  <h2>La utilidad del socio depende del desempeño del negocio.</h2>
+  <p>Si la Tienda Insignia no genera utilidad, el socio capitalista no recibe utilidad.</p>
+  <p>Los términos específicos de distribución —porcentaje, periodicidad y mecanismo— se acuerdan de manera individual con cada socio capitalista, en función del capital aportado y del alcance de la sociedad.</p>
 </section>
 
 <section class="bloque" id="bloque-09">
-  <p class="eyebrow">09 · Qué incluye la licencia</p>
-  <p class="destacado destacado--grande">USD $25,000 — una sucursal CEDIS y cinco puntos móviles.</p>
-  <p>Son seis licencias operativas. <strong>Poco más de cuatro mil dólares por punto de venta.</strong></p>
+  <p class="eyebrow">09 · Aportación de cada parte</p>
+  <h2>Capital de un lado. Operación completa del otro.</h2>
+  <p><strong>El socio capitalista aporta:</strong> el capital necesario para la apertura de la Tienda Insignia. El monto se determina según el tamaño de la ubicación y la capacidad de producción requerida, y se define con precisión durante la conversación directa.</p>
+  <p><strong>Chicanito aporta:</strong></p>
   <ul class="lista-incluye">
     <li>Uso de marca Chicken Chicanito, ROSTI y CRUJI</li>
-    <li>Acompañamiento llave en mano: desde el contrato con el arrendador hasta el primer Chicanito Móvil en la calle</li>
-    <li>Manuales de operación de sucursal y de Chicanito Móvil</li>
-    <li>Capacitación completa de tu equipo y de tus socios operativos</li>
-    <li>Abastecimiento garantizado tres veces por semana, con flete a nuestro costo</li>
-    <li>Territorio exclusivo por cada 250,000 habitantes</li>
+    <li>Operación integral: cadena de suministro, personal, procesos</li>
+    <li>Manuales de operación de Tienda Insignia y de Chicanito Móvil</li>
+    <li>Capacitación completa del equipo operativo</li>
+    <li>Abastecimiento garantizado, con logística a su cargo</li>
+    <li>Estrategia comercial y de redes sociales</li>
   </ul>
-  <p><strong>Regalía:</strong> 6% sobre ventas · <strong>Fondo de publicidad:</strong> 1%<br><strong>Vigencia:</strong> 5 años, renovable</p>
+  <p>Los términos de la sociedad —incluyendo su formalización legal— se establecen conforme a lo acordado entre ambas partes.</p>
 </section>
 
 <section class="bloque" id="bloque-10">
-  <p class="eyebrow">10 · Cómo nos comparamos</p>
+  <p class="eyebrow">10 · Cómo se compara esta oportunidad</p>
   <div class="logo-box"><img src="/assets/logo-badge.jpg" alt="Chicken Chicanito"></div>
-  <h2>Seis puntos de venta por el precio de uno.</h2>
-  <p>Las franquicias de pollo en México venden lo mismo desde hace treinta años: una licencia, un local, un punto de venta. La cuota de entrada de una cadena establecida ronda los $280,000 pesos por ese único punto.</p>
-  <p>Chicanito CEDIS entrega seis.</p>
+  <h2>Un sistema probado, no una idea nueva.</h2>
+  <p>Invertir capital en un negocio nuevo implica, casi siempre, invertir en un modelo sin historial: una idea validada, en el mejor de los casos, por proyecciones.</p>
+  <p>Esta oportunidad es distinta. Chicken Chicanito tiene más de veinte años de operación, una receta probada, una cocina con capacidad de producción instalada y un modelo de expansión —Tienda Insignia más puntos Móviles— ya operando con resultados verificables.</p>
   <table class="tabla-comparacion">
     <thead>
-      <tr><th></th><th>Chicanito CEDIS</th><th>Franquicia de pollo tradicional</th></tr>
+      <tr><th></th><th>Chicanito CEDIS</th><th>Negocio nuevo sin trayectoria</th></tr>
     </thead>
     <tbody>
-      <tr class="fila-peso"><td>Puntos de venta por licencia</td><td><strong>6</strong></td><td>1</td></tr>
-      <tr class="fila-peso"><td>Costo por punto de venta</td><td><strong>$77,000</strong></td><td>$280,000</td></tr>
-      <tr><td>Horas de venta al día</td><td>Todo el día, en seis ubicaciones</td><td>Las horas pico de una esquina</td></tr>
-      <tr><td>Cocina de producción a tu cargo</td><td>No</td><td>Sí</td></tr>
-      <tr><td>Margen de la marca sobre el producto que te vende</td><td>Ninguno</td><td>—</td></tr>
+      <tr class="fila-peso"><td>Años de operación del modelo</td><td><strong>Más de 20</strong></td><td>Ninguno</td></tr>
+      <tr class="fila-peso"><td>Producto y receta</td><td><strong>Probados</strong></td><td>Por validar</td></tr>
+      <tr><td>Consistencia operativa</td><td>Un solo equipo, un solo estándar</td><td>Depende de quien lo ejecute</td></tr>
+      <tr><td>Capacidad de producción</td><td>Instalada y pagada</td><td>Por construir</td></tr>
+      <tr><td>Responsabilidad de la operación diaria</td><td>A cargo de Chicanito</td><td>A cargo del socio o de un tercero contratado</td></tr>
     </tbody>
   </table>
+  <p>El capital no financia una idea. Financia la réplica de un sistema que ya funciona, con la operación completa a cargo de quien lo desarrolló y lo conoce.</p>
+  <p class="destacado"><strong>A diferencia de un modelo de franquicia</strong>, donde la consistencia depende de cada operador individual y varía de sucursal a sucursal, aquí la opera un solo equipo, con un solo estándar. Esa es la razón por la que este modelo se estructura como sociedad de capital y no como franquicia: la consistencia no se delega.</p>
   <h3>Una operación que no se parece al promedio.</h3>
   <p>Una rosticería bien establecida en México factura entre cincuenta y ciento cincuenta mil pesos al mes.</p>
   <p class="destacado">Jojutla hace $818,000.</p>
@@ -180,11 +190,11 @@ function html() {
 </section>
 
 <section class="bloque" id="bloque-11">
-  <p class="eyebrow">11 · Las tres preguntas que siempre nos hacen</p>
+  <p class="eyebrow">11 · Preguntas frecuentes</p>
   <h2>Y las respuestas completas, no las cómodas.</h2>
-  <p><strong>Nuestro producto es fresco, y eso impone una disciplina.</strong> Nunca se congela, por eso dura de dos a tres días. Surtimos tres veces por semana y el pedido se planea. La merma corre por tu cuenta y en los primeros meses vas a fallar el pronóstico. Lo presupuestamos en 5% y te acompañamos a bajarlo.</p>
-  <p><strong>Nada se compara con Ciudad de México, y eso corta para los dos lados.</strong> La demanda es mucho mayor y también la competencia. Proyectamos el primer año a $7 millones — la mitad de lo que hace Jojutla hoy — precisamente porque una plaza nueva se construye.</p>
-  <p><strong>Es un modelo de venta que ya funciona.</strong> Miles de food trucks operan en Ciudad de México todos los días. Es un trabajo de calle que hay que hacer bien, y te acompañamos a hacerlo.</p>
+  <p><strong>¿Cómo se protege mi capital?</strong> La operación permanece bajo la responsabilidad directa de Chicanito, con el mismo sistema, los mismos manuales y los mismos controles que ya operan en Jojutla. La transparencia de resultados —venta, costos, utilidad— es parte de la sociedad.</p>
+  <p><strong>¿Cómo doy seguimiento sin participar en la operación?</strong> El socio capitalista recibe reportes periódicos de desempeño. No participa en la operación diaria, pero mantiene visibilidad completa sobre los resultados del negocio.</p>
+  <p><strong>¿Qué pasa si las ventas no llegan a lo proyectado?</strong> Las proyecciones de Ciudad de México son conservadoras frente a lo que ya genera Jojutla, precisamente porque una plaza nueva se construye. Cualquier desviación frente a lo proyectado se revisa junto con el socio, con la misma transparencia con la que se reportan los resultados.</p>
 </section>
 
 <section class="bloque bloque--cierre" id="bloque-12">
@@ -192,16 +202,15 @@ function html() {
     <img src="/assets/mascota.png" alt="" aria-hidden="true" class="cintillo-mascota">
     <p class="eyebrow">12 · Cierre</p>
     <h2>El primero decide dónde.</h2>
-    <p>Hay una sola licencia disponible para Ciudad de México, y quien la tome escoge su territorio antes que nadie: la zona, la esquina, los cinco puntos donde van a parar los Chicanito Móvil.</p>
-    <p>Los que vengan después van a escoger de lo que sobre.</p>
-    <p>Más de veinte años de operación, un producto probado, una cocina que no tienes que aprender a manejar y seis puntos de venta desde el día uno.</p>
-    <p class="destacado destacado--grande">Lo único que falta eres tú.</p>
+    <p>Hay una sola Tienda Insignia disponible para Ciudad de México, y quien la desarrolle define su ubicación antes que cualquier otro socio: la zona, y los cinco puntos donde operarán las unidades Chicanito Móvil.</p>
+    <p>Más de veinte años de operación, un producto probado, y una estructura donde la operación completa está a cargo de quien ya sabe operarla.</p>
+    <p class="destacado destacado--grande">Lo único que falta es el capital.</p>
   </div>
 
   <div class="agenda-visita">
     <h3>Agenda tu visita a Jojutla</h3>
-    <p>Ven a ver la operación un domingo. Es nuestro día más fuerte: vas a ver la cocina a tope, la fila en el mostrador y el Chicanito Móvil cargando.</p>
-    <p>Nadie firma una franquicia por un documento. Se firma después de probar el pollo.</p>
+    <p>Ven a ver la operación en persona antes de formalizar la sociedad. Es nuestro día más fuerte los domingos: vas a ver la cocina a tope, la fila en el mostrador y el Chicanito Móvil cargando.</p>
+    <p>Nadie formaliza una sociedad por un documento. Se firma después de probar el pollo.</p>
   </div>
 
   <form id="form-solicitud" class="form-solicitud" novalidate>
@@ -238,7 +247,7 @@ function html() {
     </div>
     <input type="text" name="empresa" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
     <div class="campo campo--checkbox">
-      <label><input type="checkbox" name="consentimiento" required> Acepto ser contactado sobre esta oportunidad de franquicia. <a href="/privacidad.html" target="_blank" rel="noopener">Aviso de privacidad</a>.</label>
+      <label><input type="checkbox" name="consentimiento" required> Acepto ser contactado sobre esta oportunidad de sociedad de capital. <a href="/privacidad.html" target="_blank" rel="noopener">Aviso de privacidad</a>.</label>
     </div>
     <button type="submit">Solicitar visita y llamada</button>
     <p class="form-mensaje" role="status" aria-live="polite"></p>

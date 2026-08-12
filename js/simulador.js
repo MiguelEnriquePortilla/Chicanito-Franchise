@@ -17,7 +17,7 @@ const CAMPOS_OPERACION = [
 ];
 
 const CAMPOS_SUPUESTOS = [
-  { key: 'cuotaUSD', label: 'Cuota de franquicia (USD)', min: 0, max: 60000, step: 1000, fmt: (v) => 'USD $' + Math.round(v).toLocaleString('es-MX') },
+  { key: 'cuotaUSD', label: 'Trámites y arranque inicial (USD)', min: 0, max: 60000, step: 1000, fmt: (v) => 'USD $' + Math.round(v).toLocaleString('es-MX') },
   { key: 'tipoCambio', label: 'Tipo de cambio', min: 15, max: 26, step: 0.10, fmt: (v) => '$' + v.toFixed(2) },
   { key: 'equipoSatelite', label: 'Equipo del satélite', min: 800000, max: 2500000, step: 50000, fmt: mxn },
   { key: 'adaptacion', label: 'Adaptación del local', min: 100000, max: 1200000, step: 25000, fmt: mxn },
@@ -25,6 +25,16 @@ const CAMPOS_SUPUESTOS = [
   { key: 'precioTransferencia', label: 'Precio de transferencia por paquete', min: 55, max: 140, step: 1, fmt: mxn },
   { key: 'otrosPct', label: 'Otros gastos e imprevistos (%)', min: 4, max: 20, step: 0.5, fmt: (v) => v.toFixed(1) + '%' },
 ];
+
+// Participación ilustrativa del socio capitalista — variable de SOLO
+// presentación, no forma parte de calculo-chicanito.js. Los términos reales
+// de reparto se acuerdan caso por caso; este slider solo escala la utilidad
+// total ya calculada para dar una referencia de ejemplo.
+const PARTICIPACION_DEFAULT = 30;
+const CAMPO_PARTICIPACION = {
+  key: 'participacionPct', label: 'Participación ilustrativa del socio (%)', min: 10, max: 70, step: 5,
+  fmt: (v) => Math.round(v) + '%',
+};
 
 function sliderFila(campo, valores) {
   return `
@@ -39,19 +49,30 @@ function sliderFila(campo, valores) {
 
 function esqueleto(valores) {
   return `
-    <div class="sim-etiqueta">Proyección basada en la operación real de Jojutla. No constituye garantía de resultados.</div>
+    <div class="sim-etiqueta">Proyección basada en la operación real de Jojutla. El porcentaje de participación es ilustrativo; los términos definitivos se establecen por acuerdo directo. No constituye garantía de resultados.</div>
 
     <div class="sim-indicadores">
       <div class="sim-indicador sim-indicador--destacado">
-        <div class="sim-indicador-label">Recuperas la inversión en</div>
+        <div class="sim-indicador-label">Se recupera la inversión en</div>
         <div class="sim-indicador-valor" data-out="payback">—</div>
       </div>
       <div class="sim-indicador"><div class="sim-indicador-label">Inversión inicial</div><div class="sim-indicador-valor" data-out="inversion">—</div></div>
-      <div class="sim-indicador"><div class="sim-indicador-label">Utilidad a 5 años</div><div class="sim-indicador-valor" data-out="utilidad">—</div></div>
+      <div class="sim-indicador"><div class="sim-indicador-label">Utilidad total a 5 años</div><div class="sim-indicador-valor" data-out="utilidad">—</div></div>
       <div class="sim-indicador"><div class="sim-indicador-label">Retorno sobre lo invertido</div><div class="sim-indicador-valor" data-out="multiplo">—</div></div>
     </div>
 
     <div class="sim-barra-60" data-out="barra60" role="img" aria-label="Acumulado mes a mes durante 60 meses, rojo mientras es negativo, dorado al volverse positivo"></div>
+
+    <h4 class="sim-grupo-titulo">Participación ilustrativa</h4>
+    <div class="sim-sliders" data-grupo="participacion">
+      ${sliderFila(CAMPO_PARTICIPACION, valores)}
+    </div>
+    <div class="sim-indicadores sim-indicadores--socio">
+      <div class="sim-indicador sim-indicador--destacado">
+        <div class="sim-indicador-label">Utilidad estimada del socio a 5 años (ejemplo)</div>
+        <div class="sim-indicador-valor" data-out="utilidadSocio">—</div>
+      </div>
+    </div>
 
     <h4 class="sim-grupo-titulo">Escenario de operación</h4>
     <div class="sim-sliders" data-grupo="operacion">
@@ -98,7 +119,7 @@ function pintarTabla(tbody, anios) {
 }
 
 export function montarSimulador(root, tipoCambioDefault) {
-  const valores = { ...DEFAULTS };
+  const valores = { ...DEFAULTS, participacionPct: PARTICIPACION_DEFAULT };
   if (tipoCambioDefault) valores.tipoCambio = tipoCambioDefault;
   const valoresIniciales = { ...valores };
 
@@ -108,6 +129,7 @@ export function montarSimulador(root, tipoCambioDefault) {
   const outInversion = root.querySelector('[data-out="inversion"]');
   const outUtilidad = root.querySelector('[data-out="utilidad"]');
   const outMultiplo = root.querySelector('[data-out="multiplo"]');
+  const outUtilidadSocio = root.querySelector('[data-out="utilidadSocio"]');
   const outBarra60 = root.querySelector('[data-out="barra60"]');
   const outTabla = root.querySelector('[data-out="tabla"] tbody');
   const botonReset = root.querySelector('[data-out="reset"]');
@@ -120,6 +142,9 @@ export function montarSimulador(root, tipoCambioDefault) {
     outInversion.textContent = mxn(r.inversion);
     outUtilidad.textContent = mxn(r.utilidadTotal);
     outMultiplo.textContent = r.multiplo.toFixed(2) + 'x';
+    // Utilidad del socio: capa de presentación únicamente, escala la
+    // utilidad total ya calculada por el % ilustrativo. No altera calcular().
+    outUtilidadSocio.textContent = mxn(r.utilidadTotal * (valores.participacionPct / 100));
     pintarBarra60(outBarra60, r.serie);
     pintarTabla(outTabla, r.anios);
     return r;
@@ -128,7 +153,7 @@ export function montarSimulador(root, tipoCambioDefault) {
   root.querySelectorAll('.sim-sliders input[type="range"]').forEach((input) => {
     const fila = input.closest('.sim-slider-fila');
     const key = fila.dataset.key;
-    const campo = [...CAMPOS_OPERACION, ...CAMPOS_SUPUESTOS].find((c) => c.key === key);
+    const campo = [...CAMPOS_OPERACION, ...CAMPOS_SUPUESTOS, CAMPO_PARTICIPACION].find((c) => c.key === key);
     const etiquetaValor = fila.querySelector('.sim-slider-valor');
 
     input.addEventListener('input', () => {
