@@ -1,9 +1,13 @@
 // Simulador financiero — bloque 07. Usa calcular()/CONST/DEFAULTS de
-// calculo-chicanito.js SIN TOCARLOS (regla no negociable del brief). Esta
-// capa solo construye la UI (sliders, indicadores, gráficas, tabla) alrededor.
+// calculo-chicanito.js SIN TOCARLOS (regla no negociable del brief), y
+// distribuir()/CASCADA_DEFAULTS de cascada.js para repartir la utilidad
+// entre el socio y la operadora. Esta capa solo construye la UI (sliders,
+// indicadores, barra de cascada, tabla) alrededor de ambos motores.
 import { calcular, DEFAULTS } from './calculo-chicanito.js';
+import { distribuir, CASCADA_DEFAULTS } from './cascada.js';
 
 const mxn = (n) => '$' + Math.round(n).toLocaleString('es-MX');
+const pct2 = (v) => (v * 100).toFixed(2) + '%';
 
 const CAMPOS_OPERACION = [
   { key: 'ventaAno1', label: 'Venta del satélite, año 1', min: 3000000, max: 15000000, step: 250000, fmt: mxn },
@@ -16,9 +20,14 @@ const CAMPOS_OPERACION = [
   { key: 'nominaPct', label: 'Nómina sobre ventas (%)', min: 10, max: 30, step: 0.5, fmt: (v) => v.toFixed(1) + '%' },
 ];
 
+const CAMPOS_COMERCIALES = [
+  { key: 'operacionPct', label: 'Contraprestación de operación', min: 0, max: 0.03, step: 0.0025, fmt: pct2 },
+  { key: 'marcaPct', label: 'Fondo de marca', min: 0, max: 0.03, step: 0.0025, fmt: pct2 },
+  { key: 'escalon2Inv', label: 'Preferente al socio (escalón 2)', min: 0.50, max: 0.80, step: 0.05, fmt: (v) => Math.round(v * 100) + '%' },
+  { key: 'multiploPreferente', label: 'Umbral del preferente', min: 1.5, max: 3.0, step: 0.25, fmt: (v) => v.toFixed(2) + 'x' },
+];
+
 const CAMPOS_SUPUESTOS = [
-  { key: 'cuotaUSD', label: 'Trámites y arranque inicial (USD)', min: 0, max: 60000, step: 1000, fmt: (v) => 'USD $' + Math.round(v).toLocaleString('es-MX') },
-  { key: 'tipoCambio', label: 'Tipo de cambio', min: 15, max: 26, step: 0.10, fmt: (v) => '$' + v.toFixed(2) },
   { key: 'equipoSatelite', label: 'Equipo del satélite', min: 800000, max: 2500000, step: 50000, fmt: mxn },
   { key: 'adaptacion', label: 'Adaptación del local', min: 100000, max: 1200000, step: 25000, fmt: mxn },
   { key: 'costoMotocarro', label: 'Costo de un Chicanito Móvil', min: 150000, max: 500000, step: 10000, fmt: mxn },
@@ -26,15 +35,7 @@ const CAMPOS_SUPUESTOS = [
   { key: 'otrosPct', label: 'Otros gastos e imprevistos (%)', min: 4, max: 20, step: 0.5, fmt: (v) => v.toFixed(1) + '%' },
 ];
 
-// Participación ilustrativa del socio capitalista — variable de SOLO
-// presentación, no forma parte de calculo-chicanito.js. Los términos reales
-// de reparto se acuerdan caso por caso; este slider solo escala la utilidad
-// total ya calculada para dar una referencia de ejemplo.
-const PARTICIPACION_DEFAULT = 30;
-const CAMPO_PARTICIPACION = {
-  key: 'participacionPct', label: 'Participación ilustrativa del socio (%)', min: 10, max: 70, step: 5,
-  fmt: (v) => Math.round(v) + '%',
-};
+const TODOS_LOS_CAMPOS = [...CAMPOS_OPERACION, ...CAMPOS_COMERCIALES, ...CAMPOS_SUPUESTOS];
 
 function sliderFila(campo, valores) {
   return `
@@ -49,29 +50,37 @@ function sliderFila(campo, valores) {
 
 function esqueleto(valores) {
   return `
-    <div class="sim-etiqueta">Proyección basada en la operación real de Jojutla. El porcentaje de participación es ilustrativo; los términos definitivos se establecen por acuerdo directo. No constituye garantía de resultados.</div>
+    <div class="sim-etiqueta">Proyección basada en la operación real de Jojutla. La cascada de reparto y el monto de arranque son los términos propuestos; los definitivos se establecen por acuerdo directo. No constituye garantía de resultados.</div>
 
-    <div class="sim-indicadores">
-      <div class="sim-indicador sim-indicador--destacado">
-        <div class="sim-indicador-label">Se recupera la inversión en</div>
-        <div class="sim-indicador-valor" data-out="payback">—</div>
-      </div>
-      <div class="sim-indicador"><div class="sim-indicador-label">Inversión inicial</div><div class="sim-indicador-valor" data-out="inversion">—</div></div>
-      <div class="sim-indicador"><div class="sim-indicador-label">Utilidad total a 5 años</div><div class="sim-indicador-valor" data-out="utilidad">—</div></div>
-      <div class="sim-indicador"><div class="sim-indicador-label">Retorno sobre lo invertido</div><div class="sim-indicador-valor" data-out="multiplo">—</div></div>
+    <div class="sim-primarias">
+      <div class="sim-primaria"><div class="sim-primaria-label">Recupero mi capital en el</div><div class="sim-primaria-valor" data-out="paybackSocio">—</div></div>
+      <div class="sim-primaria"><div class="sim-primaria-label">Recibo en 5 años</div><div class="sim-primaria-valor" data-out="invTotal">—</div></div>
+      <div class="sim-primaria"><div class="sim-primaria-label">Sobre mi capital</div><div class="sim-primaria-valor" data-out="multiploSocio">—</div></div>
+      <div class="sim-primaria"><div class="sim-primaria-label">De la utilidad total</div><div class="sim-primaria-valor" data-out="pctUtilidad">—</div></div>
     </div>
 
-    <div class="sim-barra-60" data-out="barra60" role="img" aria-label="Acumulado mes a mes durante 60 meses, rojo mientras es negativo, dorado al volverse positivo"></div>
-
-    <h4 class="sim-grupo-titulo">Participación ilustrativa</h4>
-    <div class="sim-sliders" data-grupo="participacion">
-      ${sliderFila(CAMPO_PARTICIPACION, valores)}
-    </div>
-    <div class="sim-indicadores sim-indicadores--socio">
-      <div class="sim-indicador sim-indicador--destacado">
-        <div class="sim-indicador-label">Utilidad estimada del socio a 5 años (ejemplo)</div>
-        <div class="sim-indicador-valor" data-out="utilidadSocio">—</div>
+    <div class="sim-cascada-wrap">
+      <div class="sim-cascada" data-out="cascada"></div>
+      <div class="sim-cascada-leyenda">
+        <span class="sim-leyenda-item"><i class="sim-leyenda-dot sim-leyenda-dot--1"></i>Recuperación de capital</span>
+        <span class="sim-leyenda-item"><i class="sim-leyenda-dot sim-leyenda-dot--2"></i>Preferente 60/40</span>
+        <span class="sim-leyenda-item"><i class="sim-leyenda-dot sim-leyenda-dot--3"></i>Reparto 50/50</span>
       </div>
+    </div>
+
+    <div class="sim-secundarias">
+      <div class="sim-secundaria"><div class="sim-secundaria-label">Inversión total</div><div class="sim-secundaria-valor" data-out="inversionTotal">—</div></div>
+      <div class="sim-secundaria"><div class="sim-secundaria-label">Utilidad repartible del proyecto</div><div class="sim-secundaria-valor" data-out="utilidadProyecto">—</div></div>
+      <div class="sim-secundaria"><div class="sim-secundaria-label">Venta total a 5 años</div><div class="sim-secundaria-valor" data-out="ventaTotal">—</div></div>
+      <div class="sim-secundaria"><div class="sim-secundaria-label">Margen promedio</div><div class="sim-secundaria-valor" data-out="margenProm">—</div></div>
+      <div class="sim-secundaria"><div class="sim-secundaria-label">Múltiplo del proyecto</div><div class="sim-secundaria-valor" data-out="multiploProyecto">—</div></div>
+    </div>
+
+    <div class="sim-etiqueta sim-etiqueta--arranque">Partida de trámites, constitución y arranque: <strong>${mxn(valores.arranqueMXN)}</strong> — tope fijo, no ajustable. Cualquier exceso lo absorbe Chicanito.</div>
+
+    <h4 class="sim-grupo-titulo">Términos comerciales</h4>
+    <div class="sim-sliders" data-grupo="comerciales">
+      ${CAMPOS_COMERCIALES.map((c) => sliderFila(c, valores)).join('')}
     </div>
 
     <h4 class="sim-grupo-titulo">Escenario de operación</h4>
@@ -90,7 +99,7 @@ function esqueleto(valores) {
     <div class="sim-tabla-wrap">
       <table class="sim-tabla" data-out="tabla">
         <thead>
-          <tr><th>Año</th><th>Venta</th><th>Utilidad</th><th>Margen</th></tr>
+          <tr><th>Año</th><th>Venta</th><th>Utilidad repartible</th><th>Margen</th><th>Al socio</th><th>Operadora (utilidad)</th><th>Operadora (2% ventas)</th></tr>
         </thead>
         <tbody></tbody>
       </table>
@@ -98,39 +107,59 @@ function esqueleto(valores) {
   `;
 }
 
-function pintarBarra60(el, serie) {
-  const max = Math.max(...serie.map((v) => Math.abs(v)), 1);
-  el.innerHTML = serie.map((v) => {
-    const alto = Math.max(4, Math.round((Math.abs(v) / max) * 100));
-    const clase = v >= 0 ? 'sim-mes sim-mes--positivo' : 'sim-mes';
-    return `<div class="${clase}" style="height:${alto}%" title="Mes ${serie.indexOf(v) + 1}: ${mxn(v)}"></div>`;
-  }).join('');
+function pintarCascada(el, escalonMes, payback, hito2x) {
+  const barras = escalonMes.map((esc, i) =>
+    `<div class="sim-cascada-mes sim-cascada-mes--${esc}" title="Mes ${i + 1}: escalón ${esc}"></div>`
+  ).join('');
+
+  const marcador = (mes, texto) => {
+    if (!mes) return '';
+    const left = ((mes - 0.5) / 60) * 100;
+    return `<div class="sim-cascada-marcador" style="left:${left}%"><span>mes ${mes} · ${texto}</span></div>`;
+  };
+
+  el.innerHTML = `
+    <div class="sim-cascada-barras">${barras}</div>
+    ${marcador(payback, 'capital recuperado')}
+    ${marcador(hito2x, '2x alcanzado')}
+  `;
 }
 
-function pintarTabla(tbody, anios) {
-  tbody.innerHTML = anios.map((a) => `
+function pintarTabla(tbody, anios, invMes, opeMes) {
+  tbody.innerHTML = anios.map((a, i) => {
+    const desde = i * 12;
+    const hasta = desde + 12;
+    const alSocio = invMes.slice(desde, hasta).reduce((s, x) => s + x, 0);
+    const aOperadoraUtilidad = opeMes.slice(desde, hasta).reduce((s, x) => s + x, 0);
+    return `
     <tr>
       <td>Año ${a.n}</td>
       <td>${mxn(a.venta)}</td>
       <td>${mxn(a.utilidad)}</td>
       <td>${Math.round(a.margen * 100)}%</td>
-    </tr>
-  `).join('');
+      <td>${mxn(alSocio)}</td>
+      <td>${mxn(aOperadoraUtilidad)}</td>
+      <td>${mxn(a.contraprestacion)}</td>
+    </tr>`;
+  }).join('');
 }
 
-export function montarSimulador(root, tipoCambioDefault) {
-  const valores = { ...DEFAULTS, participacionPct: PARTICIPACION_DEFAULT };
-  if (tipoCambioDefault) valores.tipoCambio = tipoCambioDefault;
+export function montarSimulador(root) {
+  const valores = { ...DEFAULTS, ...CASCADA_DEFAULTS };
   const valoresIniciales = { ...valores };
 
   root.innerHTML = esqueleto(valores);
 
-  const outPayback = root.querySelector('[data-out="payback"]');
-  const outInversion = root.querySelector('[data-out="inversion"]');
-  const outUtilidad = root.querySelector('[data-out="utilidad"]');
-  const outMultiplo = root.querySelector('[data-out="multiplo"]');
-  const outUtilidadSocio = root.querySelector('[data-out="utilidadSocio"]');
-  const outBarra60 = root.querySelector('[data-out="barra60"]');
+  const outPaybackSocio = root.querySelector('[data-out="paybackSocio"]');
+  const outInvTotal = root.querySelector('[data-out="invTotal"]');
+  const outMultiploSocio = root.querySelector('[data-out="multiploSocio"]');
+  const outPctUtilidad = root.querySelector('[data-out="pctUtilidad"]');
+  const outInversionTotal = root.querySelector('[data-out="inversionTotal"]');
+  const outUtilidadProyecto = root.querySelector('[data-out="utilidadProyecto"]');
+  const outVentaTotal = root.querySelector('[data-out="ventaTotal"]');
+  const outMargenProm = root.querySelector('[data-out="margenProm"]');
+  const outMultiploProyecto = root.querySelector('[data-out="multiploProyecto"]');
+  const outCascada = root.querySelector('[data-out="cascada"]');
   const outTabla = root.querySelector('[data-out="tabla"] tbody');
   const botonReset = root.querySelector('[data-out="reset"]');
 
@@ -138,30 +167,41 @@ export function montarSimulador(root, tipoCambioDefault) {
 
   function recalcular() {
     const r = calcular(valores);
-    outPayback.textContent = r.payback ? `${r.payback} meses` : 'No se recupera en 60 meses';
-    outInversion.textContent = mxn(r.inversion);
-    outUtilidad.textContent = mxn(r.utilidadTotal);
-    outMultiplo.textContent = r.multiplo.toFixed(2) + 'x';
-    // Utilidad del socio: capa de presentación únicamente, escala la
-    // utilidad total ya calculada por el % ilustrativo. No altera calcular().
-    outUtilidadSocio.textContent = mxn(r.utilidadTotal * (valores.participacionPct / 100));
-    pintarBarra60(outBarra60, r.serie);
-    pintarTabla(outTabla, r.anios);
-    return r;
+    const cfgCascada = { escalon2Inv: valores.escalon2Inv, multiploPreferente: valores.multiploPreferente };
+    const c = distribuir(r.anios, r.inversion, valores, cfgCascada);
+    const pctUtilidad = r.utilidadTotal > 0 ? (c.invTotal / r.utilidadTotal) * 100 : 0;
+    const ventaTotal = r.anios.reduce((s, a) => s + a.venta, 0);
+    const margenProm = ventaTotal > 0 ? (r.utilidadTotal / ventaTotal) * 100 : 0;
+
+    outPaybackSocio.textContent = c.payback ? `mes ${c.payback}` : 'No se recupera en 60 meses';
+    outInvTotal.textContent = mxn(c.invTotal);
+    outMultiploSocio.textContent = c.multiplo.toFixed(2) + 'x';
+    outPctUtilidad.textContent = Math.round(pctUtilidad) + '%';
+
+    outInversionTotal.textContent = mxn(r.inversion);
+    outUtilidadProyecto.textContent = mxn(r.utilidadTotal);
+    outVentaTotal.textContent = mxn(ventaTotal);
+    outMargenProm.textContent = Math.round(margenProm) + '%';
+    outMultiploProyecto.textContent = r.multiplo.toFixed(2) + 'x';
+
+    pintarCascada(outCascada, c.escalonMes, c.payback, c.hito2x);
+    pintarTabla(outTabla, r.anios, c.invMes, c.opeMes);
+
+    return { r, c };
   }
 
   root.querySelectorAll('.sim-sliders input[type="range"]').forEach((input) => {
     const fila = input.closest('.sim-slider-fila');
     const key = fila.dataset.key;
-    const campo = [...CAMPOS_OPERACION, ...CAMPOS_SUPUESTOS, CAMPO_PARTICIPACION].find((c) => c.key === key);
+    const campo = TODOS_LOS_CAMPOS.find((c) => c.key === key);
     const etiquetaValor = fila.querySelector('.sim-slider-valor');
 
     input.addEventListener('input', () => {
       const val = parseFloat(input.value);
       valores[key] = val;
       etiquetaValor.textContent = campo.fmt(val);
-      const r = recalcular();
-      if (onCambio) onCambio(key, val, r);
+      const resultado = recalcular();
+      if (onCambio) onCambio(key, val, resultado.r);
     });
   });
 
@@ -174,13 +214,15 @@ export function montarSimulador(root, tipoCambioDefault) {
     });
   });
 
-  const resultadoInicial = recalcular();
+  recalcular();
 
   return {
     onCambio(fn) { onCambio = fn; },
     obtenerEscenario() {
       const r = calcular(valores);
-      return { valores: { ...valores }, inversion: r.inversion, payback: r.payback, multiplo: r.multiplo };
+      const cfgCascada = { escalon2Inv: valores.escalon2Inv, multiploPreferente: valores.multiploPreferente };
+      const c = distribuir(r.anios, r.inversion, valores, cfgCascada);
+      return { valores: { ...valores }, inversion: r.inversion, payback: c.payback, multiplo: c.multiplo };
     },
   };
 }

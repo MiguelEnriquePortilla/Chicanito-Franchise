@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin · Chicanito Franchise</title>
+<title>Admin · Chicanito Capital</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
   <div id="admin-login" class="entrada">
     <div class="entrada-tarjeta">
       <h1 class="entrada-titulo" style="font-size:1.6rem">Admin</h1>
-      <p class="entrada-subtitulo">Chicanito Franchise</p>
+      <p class="entrada-subtitulo">Chicanito Capital</p>
       <form class="entrada-form" id="form-admin-login">
         <input id="admin-token" type="password" placeholder="Clave de administrador" autocomplete="off" required>
         <p class="entrada-error" id="admin-login-error"></p>
@@ -24,13 +24,13 @@
   </div>
 
   <main id="admin-panel" class="contenedor admin-panel" hidden>
-    <h1 class="admin-titulo">Chicanito Franchise — Admin</h1>
+    <h1 class="admin-titulo">Chicanito Capital — Admin</h1>
 
     <nav class="admin-tabs">
       <button class="admin-tab" data-tab="claves">Claves</button>
       <button class="admin-tab" data-tab="actividad">Actividad</button>
       <button class="admin-tab" data-tab="leads">Solicitudes</button>
-      <button class="admin-tab" data-tab="config">Tipo de cambio</button>
+      <button class="admin-tab" data-tab="config">Tipo de cambio (inactivo)</button>
     </nav>
 
     <section class="admin-seccion" data-panel="claves">
@@ -81,8 +81,8 @@
     </section>
 
     <section class="admin-seccion" data-panel="config" hidden>
-      <h2>Tipo de cambio USD/MXN</h2>
-      <p>Default que usa el simulador para prospectos que aún no han entrado.</p>
+      <h2>Tipo de cambio USD/MXN (inactivo)</h2>
+      <p><strong>El modelo actual opera en pesos</strong> — el arranque ya no se cotiza en USD, así que el simulador no consume este valor. Se deja aquí sin borrar por si se necesita en el futuro; no tiene efecto visible para los prospectos.</p>
       <form id="form-tipo-cambio" class="admin-form-inline">
         <input name="tipoCambio" type="number" step="0.01" min="1" required>
         <button type="submit" class="btn btn-primary">Guardar</button>

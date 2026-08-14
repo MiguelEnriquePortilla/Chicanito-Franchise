@@ -2,7 +2,7 @@
   "name": "chicanito-inversionista",
   "version": "1.0.0",
   "private": true,
-  "description": "Guía del Inversionista — micrositio privado de venta de franquicia Chicanito CEDIS",
+  "description": "Chicanito Capital — micrositio privado para ofrecer la sociedad de capital de la Tienda Insignia CDMX a prospectos de inversión",
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4"
   }

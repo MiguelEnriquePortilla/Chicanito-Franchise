@@ -28,10 +28,10 @@ function mostrarErrorCarga() {
   });
 }
 
-function conectarSimulador(tipoCambio) {
+function conectarSimulador() {
   const root = document.getElementById('simulador-root');
   if (!root) return;
-  const sim = montarSimulador(root, tipoCambio);
+  const sim = montarSimulador(root);
   sim.onCambio((clave, valor) => {
     registrarCambioSlider(clave, valor);
     actualizarEscenarioFinal(sim.obtenerEscenario());
@@ -134,7 +134,7 @@ async function iniciar() {
   cargando.hidden = true;
   contenido.hidden = false;
 
-  conectarSimulador(data.tipoCambio);
+  conectarSimulador();
   conectarFormulario();
   iniciarSeguimientoBloques(contenido);
   iniciarTemporizador();

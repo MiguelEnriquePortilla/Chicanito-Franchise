@@ -1,21 +1,26 @@
 // calculo-chicanito.js
 // Motor de cálculo de la Guía del Inversionista — Chicanito CEDIS.
-// Extraído textualmente del simulador validado. NO modificar las fórmulas:
-// están calibradas contra datos reales de punto de venta de Jojutla.
+// Extraído textualmente del simulador validado. NO modificar las fórmulas
+// de venta, curva de crecimiento, food cost, nómina, renta, servicios,
+// admin y desechables: están calibradas contra datos reales de punto de
+// venta de Jojutla. Los parámetros comerciales (contraprestación, arranque)
+// sí son parametrizables — ver DEFAULTS y HANDOFF_CHICANITO_FRANCHISE.md §17.
 //
-// Cifras de control: con DEFAULTS debe arrojar exactamente
-//   inversion      = 3,322,073
-//   payback        = 22 meses
-//   utilidadTotal  = 17,646,841
-//   multiplo       = 5.31
+// Cifras de control v2 (modelo de sociedad de capital): con DEFAULTS debe
+// arrojar exactamente
+//   capitalTrabajo = 554,573
+//   inversion      = 3,359,573
+//   payback        = mes 19 (acum del proyecto en calcular() cruza a cero
+//                    el mismo mes que el payback del socio en cascada.js,
+//                    porque el escalón 1 replica el 100% al 100% hasta ahí)
+//   utilidadTotal  = 22,401,249
+//   contraprestacion a 5 años = 1,901,763
 //   ventas por año = 8,467,180 · 14,834,360 · 20,883,040 · 24,080,777 · 26,822,802
-//   utilidades     = 1,351,029 · 2,826,865 · 4,224,185 · 4,926,982 · 5,517,780
-//   margenes       = 16.0% · 19.1% · 20.2% · 20.5% · 20.6%
+//   utilidades     = 1,774,388 · 3,568,583 · 5,268,337 · 6,131,021 · 6,858,920
+//   margenes       = 21.0% · 24.1% · 25.2% · 25.5% · 25.6%
 
 export const CONST = {
   desechablesPct: 0.024,
-  regaliaPct: 0.06,
-  publicidadPct: 0.01,
   serviciosBase: 204000,
   adminBase: 70200,
   motoOpAnual: 14200,
@@ -47,7 +52,7 @@ export function calcular(v) {
     const servicios = CONST.serviciosBase * (1 + 0.15 * i);
     const motosOp = CONST.motoOpAnual * motosActivas;
     const admin = CONST.adminBase * (1 + 0.1 * i);
-    const regalias = venta * (CONST.regaliaPct + CONST.publicidadPct);
+    const contraprestacion = venta * (v.operacionPct + v.marcaPct);
 
     const costos =
       producto +
@@ -58,7 +63,7 @@ export function calcular(v) {
       servicios +
       motosOp +
       admin +
-      regalias;
+      contraprestacion;
     const utilidad = venta - costos;
 
     anios.push({
@@ -75,20 +80,19 @@ export function calcular(v) {
       servicios,
       motosOp,
       admin,
-      regalias,
+      contraprestacion,
       costos,
       utilidad,
       margen: venta > 0 ? utilidad / venta : 0,
     });
   }
 
-  const cuotaMXN = v.cuotaUSD * v.tipoCambio;
   const deposito = v.rentaMensual * 3;
   const nominaMes1 = (anios[0].venta * (v.nominaPct / 100)) / 12;
   const capitalTrabajo =
     3 * (v.rentaMensual + nominaMes1 + CONST.serviciosBase / 12 + CONST.adminBase / 12);
   const inversion =
-    cuotaMXN +
+    v.arranqueMXN +
     v.equipoSatelite +
     v.adaptacion +
     (v.motosTotales >= 1 ? v.costoMotocarro : 0) +
@@ -118,7 +122,6 @@ export function calcular(v) {
     anios,
     ventaMotoAnual,
     inversion,
-    cuotaMXN,
     deposito,
     capitalTrabajo,
     payback,
@@ -140,8 +143,9 @@ export const DEFAULTS = {
   rentaMensual: 35000,
   nominaPct: 18,
   otrosPct: 10,
-  cuotaUSD: 25000,
-  tipoCambio: 18.5,
+  operacionPct: 0.01,
+  marcaPct: 0.01,
+  arranqueMXN: 500000,
   equipoSatelite: 1500000,
   adaptacion: 400000,
   costoMotocarro: 300000,
