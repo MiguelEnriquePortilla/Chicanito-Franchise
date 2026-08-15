@@ -1,0 +1,210 @@
+@font-face { font-family:'Bebas Neue'; src:url('/root/.fonts/BebasNeue-Regular.ttf'); }
+@font-face { font-family:'Poppins'; src:url('/usr/share/fonts/truetype/google-fonts/Poppins-Regular.ttf'); font-weight:400; }
+@font-face { font-family:'Poppins'; src:url('/usr/share/fonts/truetype/google-fonts/Poppins-Light.ttf'); font-weight:300; }
+@font-face { font-family:'Poppins'; src:url('/usr/share/fonts/truetype/google-fonts/Poppins-Medium.ttf'); font-weight:500; }
+@font-face { font-family:'Poppins'; src:url('/usr/share/fonts/truetype/google-fonts/Poppins-Bold.ttf'); font-weight:700; }
+
+:root{
+  --red:#E30613; --red-dark:#a10410; --navy:#17213E; --navy-dark:#0c1327;
+  --black:#1D1D1B; --cream:#FFF7EC; --cream-deep:#F5ECDC; --gold:#D9A441;
+  --gold-dark:#a97a2c; --line:#E3D8C4;
+}
+
+@page{
+  size:A4; margin:19mm 17mm 17mm 17mm;
+  background:var(--cream);
+  @bottom-left{
+    content:"Chicken Chicanito · Memorándum de inversión";
+    font-family:'Poppins'; font-size:6.6pt; color:#9d9483; letter-spacing:.04em;
+    padding-bottom:5mm;
+  }
+  @bottom-right{
+    content:"CONFIDENCIAL · " counter(page);
+    font-family:'Poppins'; font-size:6.6pt; font-weight:500; color:var(--red);
+    letter-spacing:.09em; padding-bottom:5mm;
+  }
+}
+@page portada{ margin:0; background:var(--navy); @bottom-left{content:""} @bottom-right{content:""} }
+@page cierre { margin:0; background:var(--red);  @bottom-left{content:""} @bottom-right{content:""} }
+
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:'Poppins'; font-weight:300; color:var(--navy);
+  font-size:9.1pt; line-height:1.62;
+  background-image:url('img/wm-navy.png'); background-size:82mm;
+}
+p{margin:0 0 6pt;}
+strong{font-weight:600; color:var(--navy);}
+.num,td,th{font-variant-numeric:tabular-nums; font-feature-settings:"tnum";}
+
+/* ---------- PORTADA ---------- */
+.portada{
+  page:portada; height:297mm; width:210mm; position:relative;
+  background:var(--navy) url('img/wm-cream.png'); background-size:92mm;
+  color:var(--cream); overflow:hidden;
+}
+.portada::after{content:""; position:absolute; left:0; right:0; bottom:0; height:13mm; background:var(--red);}
+.p-barra{position:absolute; top:0; left:0; right:0; height:5mm; background:var(--red);}
+.p-in{position:absolute; top:0; left:0; right:0; bottom:0; padding:26mm 22mm 22mm; display:flex; flex-direction:column;}
+.p-badge{width:41mm; margin-bottom:11mm;}
+.p-eyebrow{
+  font-family:'Poppins'; font-weight:600; font-size:7.6pt; letter-spacing:.30em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:7mm;
+}
+.p-titulo{
+  font-family:'Bebas Neue'; font-size:53pt; line-height:.93; letter-spacing:.005em;
+  color:var(--cream); margin-bottom:6mm;
+}
+.p-titulo em{font-style:normal; color:var(--red); background:var(--cream); padding:0 2.5mm;}
+.p-sub{font-size:11pt; font-weight:300; color:#c9d0e0; max-width:118mm; line-height:1.55;}
+.p-rule{width:26mm; height:1.4mm; background:var(--gold); margin:9mm 0 8mm;}
+.p-cifras{display:flex; gap:9mm; margin-top:2mm;}
+.p-cifra .v{font-family:'Bebas Neue'; font-size:29pt; color:var(--gold); line-height:1;}
+.p-cifra .l{font-size:6.9pt; color:#a9b3c7; letter-spacing:.09em; text-transform:uppercase; margin-top:1mm;}
+.p-pie{margin-top:auto;}
+.p-slogan{width:38mm; margin:4mm 0 5mm; opacity:.92;}
+.p-pie-txt{font-size:7.9pt; color:#a9b3c7; line-height:1.75;}
+.p-pie-txt b{color:var(--cream); font-weight:600;}
+.p-mascota{position:absolute; right:-4mm; bottom:13mm; width:47mm; opacity:.97;}
+
+/* ---------- ESTRUCTURA ---------- */
+.seccion{break-before:page;}
+.eyebrow{
+  font-family:'Poppins'; font-weight:600; font-size:7pt; letter-spacing:.24em;
+  color:var(--red); text-transform:uppercase; margin-bottom:2.5mm;
+}
+h1{
+  font-family:'Bebas Neue'; font-weight:400; font-size:27pt; line-height:1.02;
+  color:var(--navy); letter-spacing:.004em; margin-bottom:4mm;
+}
+h1::after{content:""; display:block; width:17mm; height:1.2mm; background:var(--gold); margin-top:3.5mm;}
+h2{
+  font-family:'Bebas Neue'; font-weight:400; font-size:15pt; color:var(--navy);
+  letter-spacing:.012em; margin:8mm 0 3mm;
+}
+h3{font-family:'Poppins'; font-weight:600; font-size:9.3pt; color:var(--red); margin:6mm 0 2mm; letter-spacing:.01em;}
+.lead{font-size:10.4pt; font-weight:300; line-height:1.6; color:#3c465f; margin-bottom:6mm;}
+ul{margin:0 0 6pt 4.5mm;} li{margin-bottom:2.2pt; padding-left:1.5mm;}
+li::marker{color:var(--red);}
+
+/* ---------- CIFRAS HERO ---------- */
+.hero{display:flex; gap:3.6mm; margin:6mm 0;}
+.hero-c{
+  flex:1; background:var(--navy); color:var(--cream); border-radius:3mm;
+  padding:6mm 4.5mm 5.4mm; text-align:center;
+  border-right:1.6mm solid var(--red); border-bottom:1.6mm solid var(--red);
+}
+.hero-c .l{font-size:6.4pt; letter-spacing:.1em; text-transform:uppercase; color:#a9b3c7; margin-bottom:2mm; line-height:1.3;}
+.hero-c .v{font-family:'Bebas Neue'; font-size:24pt; color:var(--gold); line-height:1;}
+.hero-c.destaca{background:var(--red); border-right-color:var(--navy); border-bottom-color:var(--navy);}
+.hero-c.destaca .v{color:#fff;} .hero-c.destaca .l{color:#ffd9dc;}
+
+.mini{display:flex; gap:2.6mm; margin:5mm 0;}
+.mini-c{flex:1; background:#fff; border:.35mm solid var(--line); border-radius:2mm; padding:3.6mm 3mm; text-align:center;}
+.mini-c .v{font-family:'Bebas Neue'; font-size:14.5pt; color:var(--navy); line-height:1;}
+.mini-c .l{font-size:6pt; color:#8d8577; letter-spacing:.06em; text-transform:uppercase; margin-top:1.4mm; line-height:1.3;}
+
+/* ---------- TABLAS ---------- */
+table{width:100%; border-collapse:collapse; margin:4mm 0 5mm; font-size:8.3pt;}
+thead th{
+  background:var(--navy); color:var(--cream); font-weight:600; font-size:6.9pt;
+  letter-spacing:.08em; text-transform:uppercase; padding:2.6mm 2.6mm; text-align:right;
+}
+thead th:first-child{text-align:left; border-radius:1.6mm 0 0 0;}
+thead th:last-child{border-radius:0 1.6mm 0 0;}
+tbody td{padding:2.3mm 2.6mm; border-bottom:.3mm solid var(--line); text-align:right;}
+tbody td:first-child{text-align:left; font-weight:400;}
+tbody tr:nth-child(even) td{background:rgba(245,236,220,.55);}
+tbody tr.total td{
+  background:var(--navy)!important; color:var(--cream); font-weight:600;
+  border-bottom:none; font-size:8.6pt;
+}
+tbody tr.total td:first-child{border-radius:0 0 0 1.6mm;} tbody tr.total td:last-child{border-radius:0 0 1.6mm 0;}
+td .tag{font-size:6.4pt; color:#9d9483; letter-spacing:.05em; text-transform:uppercase;}
+td .tag.fijo{color:var(--red); font-weight:600;}
+tr.fijo td{background:#FDF0D8!important; font-weight:600;}
+
+/* ---------- CASCADA ---------- */
+.esc{display:flex; gap:3mm; margin:2.5mm 0;}
+.esc-n{
+  flex:0 0 11mm; height:11mm; border-radius:50%; color:#fff;
+  font-family:'Bebas Neue'; font-size:15pt; display:flex; align-items:center; justify-content:center;
+}
+.esc-1 .esc-n{background:var(--red);} .esc-2 .esc-n{background:var(--gold);} .esc-3 .esc-n{background:var(--navy);}
+.esc-t{font-family:'Bebas Neue'; font-size:13pt; letter-spacing:.015em; line-height:1.15; margin-bottom:1mm;}
+.esc-1 .esc-t{color:var(--red);} .esc-2 .esc-t{color:var(--gold-dark);} .esc-3 .esc-t{color:var(--navy);}
+.esc-b{font-size:8.5pt; line-height:1.55;}
+
+.barra{display:flex; height:9mm; border-radius:1.6mm; overflow:hidden; margin:5mm 0 2mm; border:.3mm solid var(--line);}
+.barra div{display:flex; align-items:center; justify-content:center; font-size:6.3pt; font-weight:600; letter-spacing:.05em; color:#fff;}
+.b1{background:var(--red); flex:19;} .b2{background:var(--gold); flex:15;} .b3{background:var(--navy); flex:26;}
+.barra-lbl{display:flex; font-size:6.4pt; color:#8d8577; letter-spacing:.05em;}
+.barra-lbl span{text-align:center;} .barra-lbl .l1{flex:19;} .barra-lbl .l2{flex:15;} .barra-lbl .l3{flex:26;}
+
+/* ---------- CAJAS ---------- */
+.nota{
+  background:var(--cream-deep); border-left:1.4mm solid var(--gold);
+  padding:4mm 4.5mm; margin:5mm 0; font-size:8.4pt; line-height:1.58; border-radius:0 2mm 2mm 0;
+}
+.nota .t{font-family:'Bebas Neue'; font-size:11.5pt; color:var(--gold-dark); letter-spacing:.02em; margin-bottom:1.5mm;}
+.destacado{
+  background:var(--navy); color:var(--cream); padding:5.5mm 6mm; border-radius:2.5mm;
+  margin:6mm 0; font-size:9.6pt; line-height:1.58;
+}
+.destacado strong{color:var(--gold);}
+.riesgo{border:.35mm solid var(--line); border-radius:2mm; padding:4mm 4.5mm; margin-bottom:3.5mm; background:#fff;}
+.riesgo .t{font-family:'Poppins'; font-weight:600; font-size:8.8pt; color:var(--navy); margin-bottom:1.5mm;}
+.riesgo .m{font-size:8pt; color:#5b6480; margin-top:1.8mm; padding-top:1.8mm; border-top:.3mm dashed var(--line);}
+.riesgo .m b{color:var(--red); font-weight:600; letter-spacing:.04em; text-transform:uppercase; font-size:6.7pt;}
+
+.paso{display:flex; gap:3.5mm; margin-bottom:3.4mm; align-items:baseline;}
+.paso-n{
+  flex:0 0 7.5mm; height:7.5mm; border-radius:50%; background:var(--red); color:#fff;
+  font-family:'Bebas Neue'; font-size:11pt; text-align:center; line-height:7.5mm;
+}
+.paso-t{font-weight:600; font-size:9pt; color:var(--navy);}
+.paso-b{font-size:8.4pt; color:#5b6480; line-height:1.5;}
+
+.col2{display:flex; gap:6mm;} .col2>div{flex:1;}
+.movil{width:54%; display:block; margin:4mm auto 2mm;}  /* póster vertical 2:3, sin recortar */
+.pie-img{font-size:6.6pt; color:#9d9483; letter-spacing:.05em; text-align:center;}
+
+/* ---------- CIERRE ---------- */
+.cierre{
+  page:cierre; height:297mm; width:210mm; position:relative;
+  background:var(--red) url('img/wm-cream.png'); background-size:92mm;
+  color:#fff; overflow:hidden;
+}
+.c-in{position:absolute; inset:0; padding:20mm 22mm 16mm; display:flex; flex-direction:column; align-items:center; text-align:center;}
+.c-badge{width:30mm; margin-bottom:8mm; background:var(--cream); border-radius:50%; padding:2.5mm;}
+.c-frase{font-family:'Bebas Neue'; font-size:32pt; line-height:1.02; color:#fff; max-width:150mm; margin-bottom:6mm;}
+.c-sub{font-size:10.2pt; color:#ffe0e2; max-width:118mm; line-height:1.6;}
+.c-cta{
+  display:block;   /* como <a> inline, los divs internos lo partían en varias cajas
+     y cada una dibujaba su propio borde (artefacto visual + enlaces duplicados) */
+  margin-top:12mm; background:var(--cream); color:var(--navy);
+  padding:5mm 9mm; border-radius:10mm;  /* <= mitad de la altura: WeasyPrint no acota
+     radios excesivos y dibuja un trazo auto-intersecado */
+  border:1.2mm solid var(--navy-dark);
+}
+.c-cta .l{font-size:6.7pt; letter-spacing:.16em; text-transform:uppercase; color:#8d8577;}
+.c-cta .v{font-family:'Bebas Neue'; font-size:19pt; color:var(--navy); line-height:1.15;}
+.c-mail{margin-top:6mm; font-size:9.2pt; color:#fff;}
+.c-mail a, .c-mail a strong{ color:#fff; }   /* strong global es navy: ilegible sobre rojo */
+.c-mail-ico{ width:4.2mm; vertical-align:-.6mm; margin-right:1.4mm; }
+.c-slogan{width:44mm; margin-top:7mm;}
+.c-legal{font-size:7pt; color:#ffe2e4; line-height:1.6; max-width:134mm; margin-top:7mm;}
+
+/* Secciones densas: aprieta ritmo vertical para que el cierre quepa en la página */
+.compacta h2{margin:5mm 0 2mm;}
+.compacta table{margin:2.6mm 0 3mm; font-size:8pt;}
+.compacta thead th{padding:2.1mm 2.4mm;}
+.compacta tbody td{padding:1.85mm 2.4mm;}
+.compacta .destacado{margin:4mm 0 0; padding:4.5mm 5mm; font-size:9.2pt;}
+.compacta .nota{margin:4mm 0; padding:3.4mm 4mm; font-size:8.1pt; line-height:1.5;}
+.compacta .lead{margin-bottom:4mm;}
+.compacta ul{margin-bottom:3pt;} .compacta li{margin-bottom:1.6pt;}
+
+/* Ninguna caja se parte entre páginas */
+.destacado,.nota,.riesgo,.esc,.paso,.hero,.mini,table,.barra{break-inside:avoid;}
+h1,h2,h3{break-after:avoid;}

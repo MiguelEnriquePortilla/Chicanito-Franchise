@@ -5,3 +5,5 @@ node_modules/
 .env.local
 memo-pdf/_build.*
 memo-pdf/_tmp.pdf
+memo-pdf/img/qr-navy.png
+memo-pdf/img/qr-red.png
