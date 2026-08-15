@@ -3,3 +3,5 @@ node_modules/
 *.log
 .env
 .env.local
+memo-pdf/_build.*
+memo-pdf/_tmp.pdf

@@ -120,7 +120,7 @@ function html() {
   <h2>El activo que se paga solo.</h2>
   <p>Un Chicanito Móvil completo cuesta $300,000. Operarlo cuesta $14,200 al año: gasolina, mantenimiento, seguro y permisos.</p>
   <div class="bloque-personaje bloque-personaje--movil">
-    <img src="/assets/chicanito-movil.png" alt="Chicanito Móvil">
+    <img src="/assets/chicanito-movil-modelo.png" alt="Chicanito Móvil — seis puntos de venta, una sola renta">
   </div>
   <p>Vendiendo veintisiete pollos al día —conservador, muy por debajo de lo que esperamos— genera cerca de <strong>$1.5 millones de venta al año.</strong></p>
   <p>Chicanito contrata y gestiona al socio operativo de cada unidad, bajo un esquema de sueldo base más comisión por venta. El socio capitalista no participa en esta gestión.</p>

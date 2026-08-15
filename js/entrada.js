@@ -9,10 +9,8 @@
   const confidCheck = document.getElementById('confid-check');
   const btnContinuar = document.getElementById('btn-continuar');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  async function entrar(code) {
     error.textContent = '';
-    const code = input.value.trim();
     if (!code) return;
 
     boton.disabled = true;
@@ -44,7 +42,21 @@
       boton.disabled = false;
       boton.textContent = 'Entrar';
     }
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    entrar(input.value.trim());
   });
+
+  const claveUrl = new URLSearchParams(window.location.search).get('clave');
+  if (claveUrl) {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('clave');
+    history.replaceState({}, '', url.pathname + url.search + url.hash);
+    input.value = claveUrl;
+    entrar(claveUrl.trim());
+  }
 
   confidCheck.addEventListener('change', () => {
     btnContinuar.disabled = !confidCheck.checked;
