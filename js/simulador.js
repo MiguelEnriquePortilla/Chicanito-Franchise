@@ -72,8 +72,7 @@ function esqueleto(valores) {
       <div class="sim-secundaria"><div class="sim-secundaria-label">Inversión total</div><div class="sim-secundaria-valor" data-out="inversionTotal">—</div></div>
       <div class="sim-secundaria"><div class="sim-secundaria-label">Utilidad repartible del proyecto</div><div class="sim-secundaria-valor" data-out="utilidadProyecto">—</div></div>
       <div class="sim-secundaria"><div class="sim-secundaria-label">Venta total a 5 años</div><div class="sim-secundaria-valor" data-out="ventaTotal">—</div></div>
-      <div class="sim-secundaria"><div class="sim-secundaria-label">Margen promedio</div><div class="sim-secundaria-valor" data-out="margenProm">—</div></div>
-      <div class="sim-secundaria"><div class="sim-secundaria-label">Múltiplo del proyecto</div><div class="sim-secundaria-valor" data-out="multiploProyecto">—</div></div>
+      <div class="sim-secundaria" title="Superior al promedio del sector porque la contraprestación de marca y operación es de 2% de ventas, no del 6–7% habitual en franquicias de alimentos. Ese diferencial permanece en la unidad."><div class="sim-secundaria-label">Margen neto de la unidad</div><div class="sim-secundaria-valor" data-out="margenProm">—</div></div>
     </div>
 
     <div class="sim-etiqueta sim-etiqueta--arranque">Partida de trámites, constitución y arranque: <strong>${mxn(valores.arranqueMXN)}</strong> — tope fijo, no ajustable. Cualquier exceso lo absorbe Chicanito.</div>
@@ -102,6 +101,9 @@ function esqueleto(valores) {
           <tr><th>Año</th><th>Venta</th><th>Utilidad repartible</th><th>Margen</th><th>Al socio</th><th>Operadora (utilidad)</th><th>Operadora (2% ventas)</th></tr>
         </thead>
         <tbody></tbody>
+        <tfoot>
+          <tr><td colspan="6">Múltiplo del proyecto (antes del reparto)</td><td data-out="multiploProyecto">—</td></tr>
+        </tfoot>
       </table>
     </div>
   `;
@@ -125,17 +127,26 @@ function pintarCascada(el, escalonMes, payback, hito2x) {
   `;
 }
 
-function pintarTabla(tbody, anios, invMes, opeMes) {
+function pintarTabla(tbody, anios, invMes, opeMes, valores) {
   tbody.innerHTML = anios.map((a, i) => {
     const desde = i * 12;
     const hasta = desde + 12;
     const alSocio = invMes.slice(desde, hasta).reduce((s, x) => s + x, 0);
     const aOperadoraUtilidad = opeMes.slice(desde, hasta).reduce((s, x) => s + x, 0);
+    // "Utilidad repartible" del año, neta de la reinversión en Chicanito Móvil
+    // (años 2..motosTotales) — así es como memo-inversion-chicanito-cdmx.md y
+    // el PDF la presentan, y así es como cascada.js la distribuye realmente:
+    // debe cuadrar con Al socio + Operadora (utilidad). El margen sigue
+    // calculándose sobre la utilidad bruta (calculo-chicanito.js), porque es
+    // una razón operativa y no debe descontar reinversión de capital.
+    const anioNum = a.n;
+    const reinversion = anioNum >= 2 && anioNum <= valores.motosTotales ? valores.costoMotocarro : 0;
+    const utilidadRepartible = a.utilidad - reinversion;
     return `
     <tr>
       <td>Año ${a.n}</td>
       <td>${mxn(a.venta)}</td>
-      <td>${mxn(a.utilidad)}</td>
+      <td>${mxn(utilidadRepartible)}</td>
       <td>${Math.round(a.margen * 100)}%</td>
       <td>${mxn(alSocio)}</td>
       <td>${mxn(aOperadoraUtilidad)}</td>
@@ -185,7 +196,7 @@ export function montarSimulador(root) {
     outMultiploProyecto.textContent = r.multiplo.toFixed(2) + 'x';
 
     pintarCascada(outCascada, c.escalonMes, c.payback, c.hito2x);
-    pintarTabla(outTabla, r.anios, c.invMes, c.opeMes);
+    pintarTabla(outTabla, r.anios, c.invMes, c.opeMes, valores);
 
     return { r, c };
   }

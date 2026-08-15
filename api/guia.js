@@ -130,34 +130,65 @@ function html() {
 
 <section class="bloque bloque--simulador" id="bloque-07">
   <p class="eyebrow">07 · Proyección financiera</p>
-  <h2>Bloque interactivo. Mueve las variables tú mismo.</h2>
-  <p>Los términos definitivos de participación se establecen en conversación directa con cada socio, de acuerdo con el capital aportado. Este simulador permite explorar la economía de la Tienda Insignia bajo distintos escenarios, con un porcentaje de participación ilustrativo ajustable para dimensionar un retorno de ejemplo.</p>
-  <div id="simulador-root" data-tipo-cambio-default="">
+  <h2>Los números, con los supuestos a la vista.</h2>
+  <p>Esta proyección parte de la operación real de Jojutla y aplica los términos de sociedad que proponemos. No es un ejercicio abstracto: cada variable que ves abajo se puede mover, y el resultado se recalcula al instante.</p>
+  <p>Los supuestos por defecto son deliberadamente conservadores. Si crees que alguno es optimista, muévelo y observa qué pasa — es exactamente para eso que existe este simulador.</p>
+  <p class="destacado">Lo primero que verás es tu retorno, no el nuestro. El orden importa: recuperas tu capital antes de que Chicanito participe de la utilidad.</p>
+  <div id="simulador-root">
     <p class="simulador-cargando">Cargando el simulador…</p>
   </div>
 </section>
 
 <section class="bloque" id="bloque-08">
   <p class="eyebrow">08 · Distribución de utilidades</p>
-  <h2>La utilidad del socio depende del desempeño del negocio.</h2>
-  <p>Si la Tienda Insignia no genera utilidad, el socio capitalista no recibe utilidad.</p>
-  <p>Los términos específicos de distribución —porcentaje, periodicidad y mecanismo— se acuerdan de manera individual con cada socio capitalista, en función del capital aportado y del alcance de la sociedad.</p>
+  <h2>Primero recuperas tu dinero. Después repartimos.</h2>
+  <p>La utilidad de la Tienda Insignia se distribuye en tres escalones, en este orden.</p>
+  <h3>Escalón 1 — Recuperas tu capital</h3>
+  <p>El cien por ciento de la utilidad es para ti, hasta que hayas recuperado íntegramente tu aportación. Chicanito no recibe utilidad alguna durante esta etapa. Con la proyección de referencia, esto ocurre en el <strong>mes 19</strong>.</p>
+  <h3>Escalón 2 — Retorno preferente: 60% para ti</h3>
+  <p>A partir de ahí, el sesenta por ciento de la utilidad es tuyo y el cuarenta por ciento de Chicanito, hasta que hayas acumulado dos veces tu aportación. En la proyección de referencia, alrededor del <strong>mes 34</strong>.</p>
+  <h3>Escalón 3 — Mitad y mitad</h3>
+  <p>Una vez duplicado tu capital, la utilidad se reparte en partes iguales, de forma permanente.</p>
+  <p class="destacado">El principio es simple: vas adelante mientras tu capital está en riesgo, y nos emparejamos cuando ya dejó de estarlo.</p>
+  <p>Sobre la utilidad total proyectada a cinco años, esto significa que el socio capitalista recibe el <strong>60%</strong> y Chicanito el 40% — a pesar de que Chicanito no aporta capital. Es intencional. Quien pone el dinero es quien corre el riesgo.</p>
+  <p>Si la Tienda Insignia no genera utilidad, no hay distribución. Para nadie.</p>
+  <p>Las distribuciones se calculan mensualmente y se pagan dentro de los primeros diez días del mes siguiente, previa reserva del capital de trabajo acordado.</p>
 </section>
 
 <section class="bloque" id="bloque-09">
   <p class="eyebrow">09 · Aportación de cada parte</p>
   <h2>Capital de un lado. Operación completa del otro.</h2>
-  <p><strong>El socio capitalista aporta:</strong> el capital necesario para la apertura de la Tienda Insignia. El monto se determina según el tamaño de la ubicación y la capacidad de producción requerida, y se define con precisión durante la conversación directa.</p>
+  <p><strong>El socio capitalista aporta:</strong> el capital necesario para abrir la Tienda Insignia. Una sola vez: no hay aportaciones posteriores. Las unidades Chicanito Móvil dos a cinco se financian con el flujo que el propio negocio genera.</p>
+  <table class="tabla-comparacion">
+    <thead>
+      <tr><th>Concepto</th><th>Monto estimado</th><th></th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Equipamiento de la tienda (hornos, cámara, línea)</td><td>$1,500,000</td><td>variable</td></tr>
+      <tr><td>Adaptación del local</td><td>$400,000</td><td>variable</td></tr>
+      <tr><td>Primera unidad Chicanito Móvil</td><td>$300,000</td><td>variable</td></tr>
+      <tr><td>Depósito de arrendamiento</td><td>$105,000</td><td>variable</td></tr>
+      <tr><td>Capital de trabajo (3 meses)</td><td>$554,573</td><td>variable</td></tr>
+      <tr class="fila-peso"><td>Trámites, constitución y arranque</td><td>$500,000</td><td>tope fijo</td></tr>
+      <tr class="fila-peso"><td>Total estimado</td><td>$3,359,573</td><td></td></tr>
+    </tbody>
+  </table>
+  <p>Las partidas marcadas como variables son estimaciones. Su monto definitivo depende del local que se contrate y de las condiciones de mercado al momento de comprar el equipo. Se presupuestan con precisión una vez identificada la ubicación, y se autorizan contigo antes de ejercerse.</p>
+  <p class="destacado">La partida de trámites, constitución y arranque es la única excepción: es un tope fijo de $500,000. Cualquier costo de constitución, permisos, licencias, gestoría o gasto de apertura por encima de esa cifra lo absorbe Chicanito, sin cargo para ti ni para la sociedad.</p>
+  <p>Lo comprometemos así porque es la partida más difícil de estimar de antemano y la más fácil de inflar sobre la marcha. Un número presentado en este documento no debería crecer después de firmado.</p>
   <p><strong>Chicanito aporta:</strong></p>
   <ul class="lista-incluye">
-    <li>Uso de marca Chicken Chicanito, ROSTI y CRUJI</li>
-    <li>Operación integral: cadena de suministro, personal, procesos</li>
-    <li>Manuales de operación de Tienda Insignia y de Chicanito Móvil</li>
-    <li>Capacitación completa del equipo operativo</li>
-    <li>Abastecimiento garantizado, con logística a su cargo</li>
+    <li>Uso de las marcas Chicken Chicanito, ROSTI y CRUJI</li>
+    <li>Recetas, procesos y manuales de operación de Tienda Insignia y de Chicanito Móvil</li>
+    <li>Contratación, capacitación y gestión de todo el personal</li>
+    <li>Cadena de suministro desde Jojutla, con transporte y logística a su cargo</li>
     <li>Estrategia comercial y de redes sociales</li>
+    <li>Sistemas de control y punto de venta</li>
   </ul>
-  <p>Los términos de la sociedad —incluyendo su formalización legal— se establecen conforme a lo acordado entre ambas partes.</p>
+  <p class="destacado">El producto se transfiere de Jojutla a la Tienda Insignia a costo directo de insumos, sin margen, con precio de referencia de $80 por pieza, auditable por ti y revisable anualmente contra costo real.</p>
+  <p>Chicanito no gana en el abastecimiento. Gana cuando el negocio genera utilidad.</p>
+  <p>Chicanito percibe además <strong>2% de las ventas</strong> —1% por la operación y 1% para el fondo de marca— con cargo a los costos del negocio. Ese dos por ciento cubre supervisión, capacitación, sistemas y sostenimiento de la marca. No es utilidad: la participación de Chicanito en el resultado empieza hasta el escalón 2 de la cascada.</p>
+  <p>Los términos de la sociedad, incluyendo su formalización legal, se establecen conforme a lo acordado entre ambas partes.</p>
 </section>
 
 <section class="bloque" id="bloque-10">
@@ -192,6 +223,8 @@ function html() {
 <section class="bloque" id="bloque-11">
   <p class="eyebrow">11 · Preguntas frecuentes</p>
   <h2>Y las respuestas completas, no las cómodas.</h2>
+  <p><strong>¿Qué gana Chicanito en todo esto?</strong> Dos cosas, y conviene verlas por separado. Primero, 2% de las ventas por operar y sostener la marca — se cobra con cargo a los costos, genere o no utilidad el negocio, y cubre el costo real de la supervisión. Segundo, participación en la utilidad, pero solo a partir del escalón 2: mientras tú no hayas recuperado tu capital, Chicanito no recibe un peso de utilidad.</p>
+  <p>Sobre la proyección a cinco años, el socio capitalista recibe alrededor de $13.4 millones y Chicanito alrededor de $10.9 millones sumando ambos conceptos. El socio recibe más, sin operar. Chicanito recibe menos, operando todos los días. Es la estructura que consideramos justa para que este proyecto crezca y para que quienes inviertan quieran volver a hacerlo.</p>
   <p><strong>¿Cómo se protege mi capital?</strong> La operación permanece bajo la responsabilidad directa de Chicanito, con el mismo sistema, los mismos manuales y los mismos controles que ya operan en Jojutla. La transparencia de resultados —venta, costos, utilidad— es parte de la sociedad.</p>
   <p><strong>¿Cómo doy seguimiento sin participar en la operación?</strong> El socio capitalista recibe reportes periódicos de desempeño. No participa en la operación diaria, pero mantiene visibilidad completa sobre los resultados del negocio.</p>
   <p><strong>¿Qué pasa si las ventas no llegan a lo proyectado?</strong> Las proyecciones de Ciudad de México son conservadoras frente a lo que ya genera Jojutla, precisamente porque una plaza nueva se construye. Cualquier desviación frente a lo proyectado se revisa junto con el socio, con la misma transparencia con la que se reportan los resultados.</p>
